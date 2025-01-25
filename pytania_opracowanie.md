@@ -1,44 +1,21 @@
 # **Pytania kierunkowe**
 ## 1. Widmo sygnału analogowego (podstawowo-pasmowego i pasmowego) a twierdzenie o próbkowaniu.
-Widmo sygnału jest to reprezentacja sygnału w dziedzinie częstotliwości, wyznaczana najczęściej z transformacji Fouriera. Aby sygnał był użyteczny w technice cyfrowj musi zostać zdyskretyzowany, a więc konieczne jest jego spróbkowanie oraz kwantyzacja, a widmo wyznacza się wtedy z DFT (w praktyce FFT).
+Sygnał analogowy zmienia się w sposóbSygnał analogowy zmienia się w sposób ciągły. Jego wartości mogą zostać określone w każdej chwili czasu. Próbkowanie jest procesem konwersji sygnału analogowego do postaci próbek pobieranych w równych odstępach czasu. Treść twierdzenia nieco różni się w zależności od postaci próbkowanego sygnału. W swojej podstawowej postaci twierdzenie o próbkowaniu dotyczy sygnałów rzeczywistych pasma podstawowego, czyli takich, których skończone widmo skupia się wokół częstotliwości 0.
 
-Próbkowanie jest procesem konwersji sygnału analogowego (o czasie ciągłym) do postaci próbek pobieranych w rónomiernych odstępach czasu (zwanych okresem próbkowania T).
+Twierdzenie Kotielnikowa-Shannona zawiera informacje o tym, kiedy z sygnału dyskretnego można odtworzyć sygnał ciągły. Częstotliwość próbkowania fs nie może być mniejsza od podwojonej maksymalnej częstotliwości widma sygnału próbkowanego f<sub>max</sub>. Wtedy mamy do czynienia z prawidłowym próbkowaniem.
+<div style="text-align: center;"> f<sub>s</sub>≥2*f<sub>max</sub> </div>
+<div style="text-align: center;"> gdzie: </div>
+<div style="text-align: center;"> f<sub>max</sub> - składowa sygnału o najwyższej częstotliwości </div>
+<div style="text-align: center;"> f<sub>s</sub> - częstotliwosc próbkowania </div>
 
-Twierdzenie Nyquista o próbkowaniu sygnału mówi nam, że jeżeli sygnał analogowy x<sub>a</sub>(t) jest ograniczony pasmowo (ma ograniczoną pasmowo transformatę Fouriera) to sygnał może być bezbłędnie i jednoznacznie zrekonstruowany na podstawie ciągu równomiernie rozłożonych próbek:
+W twierdzeniu o próbkowaniu wyróżniamy również częstotliwość Nyquista. Jest ona równa połowie częstotliwości f<sub>s</sub>. Znając najwyższą składową częstotliwości w mierzonym sygnale możemy dobrać odpowiednią częstotliwość próbkowania.
 
-<div style="text-align: center;"> x[n]=x<sub>a</sub>(*n*T<sub>S</sub>), *n*∈I </div>
-<div style="text-align: center;"> jeżeli: </div>
-<div style="text-align: center;"> F<sub>S</sub>=1/T<sub>S</sub>≥2F<sub>max</sub> </div>
-F<sub>S</sub> - częstotliwość próbkowania,
-
-F<sub>max</sub> - częstotliwość górna sygnału,
-
-Częstotliwość Nyquista - połowa F<sub>S</sub>
-
-
-Z właściwości transformaty Fouriera wiadomo, że widmo sygnału dyskretnego jest okresowe (co f<sub>s</sub> się powtarza). A więc jeżeli się próbkuje sygnał z częstotliwocią niższą od częstotliwości Nyquista zajdzie zjawisko aliasingu i wynikowo widma zaczną na siebie zachodzić.
-
-Sygnał analogowy podstawowo-pasmowy jest sygnałem ograniczonym pasmowo o widmie ulokowanym wokół częstotliwości zerowej. Widmo w funkcji częstotliwości:
+W praktyce często próbkowane są analogowe sygnały pasmowe czyli takie, których ograniczone pasmo jest skupione wokół pewnej częstotliwości różnej od zera. Wtedy próbkowanie z częstotliwością co najmniej dwukrotnie większą jest nieekonomiczne. W tym przypadku korzystniejsze jest próbkowanie pasmowe z częstotliwością co najmniej dwukrotnie większą od szerokości pasma które oblicza się jako B = f<sub>H</sub> - f<sub>L</sub>. Gdzie f<sub>H</sub> jest najwyższą, a f<sub>L</sub> najmniejszą częstotliwością w widmie sygnału. Pasmo jest skupione wokół częstotliwości środkowej f<sub>0</sub> = (f<sub>L</sub> + f<sub>H</sub>)/2. Częstotliwość dobiera się za pomocą nierówności:
 ![obrazek](images/1.1.PNG)
 
-A więc żeby spróbkować sygnał podstawowo-pasmowy wystarczy zastosować twierdzenie Nyquista o próbkowaniu sygnałów.
+Jeżeli sygnał jest próbkowany z częstotliwością mniejszą niż dwukrotność częstotliwości Nyquista, w widmie przetworzonego sygnału pojawiają się błędne niskoczęstotliwościowe składowe (tzw. aliasy). Zjawisko to nazywamy aliasingiem. W takim przypadku nie jest możliwe odzyskanie sygnału ciągłego z sygnału dyskretnego. Częstotliwość sygnału odtworzonego z takich próbek wyniesie: f = |n*f<sub>s</sub>-f<sub>0</sub>|, gdzie n * f<sub>s</sub> jest wielokrotnością częstotliwości próbkowania. Przykładowo sygnał o częstotliwości 7kHz spróbkowany z częstotliwością 10 kHz po odtworzeniu da sygnał o częstotliwości 3 kHz bądź 13 kHz.
 
-Sygnał pasmowy jest to sygnał o ograniczonym widmie ulokowanym wokół częstotliwości +f.
-Widmo w funkcji częstotliwości:
 ![obrazek](images/1.2.PNG)
-
-Zastosowania twierdzenia Nyquista o próbkowaniu sygnałów dla tego sygnału jest nieefektywne. W przypadku takich sygnałów możliwe jest takie dobranie szybkości próbkowania mniejszej od szybkości Nyquista, które zapewnia zachowanie nie zniekształconego widma sygnału przesuniętego jedynie w dziedzinie częstotliwości i w niektórych przypadkach widmie odwróconym w częstotliwości. Wynika to z faktu, że podczas podpróbkowania zachodzi zjawisko aliasingu, czyli sygnały "podszywają się" pod sygnały o innych częstotliwościach. Takie próbkowanie sygnału nazywa się podpróbkowaniem.
-
-Różnica względem twierdzenia o próbkowaniu Nyquista jest taka, że:
-<div style="text-align: center;"> F<sub>S</sub>>2B </div>
-B - pasmo sygnału
-
-Dodatkowo F<sub>S</sub> nie może być dowolne, występują dopuszczalne pasma próbkowania. W wyniku podpróbkowania w dopuszczalnych pasmach próbkowania uzyskuje się widmo odwrócone w częstotliwości bądź widmo bez odwrócenia. Jeśli do podpróbkowania zostanie wybrana częstotliwość spoza dopuszczalnego pasma to zajdzie zachodzeni się na siebie widm sygnału.
-
-Jak dobrać F<sub>S</sub> nie znając wzorów, które wyznaczają dopuszczalne pasma próbkowania:
-    Jeżeli pasmo B mieści się całkowitą ilość razy w częstotliwości f<sub>H</sub> (iloraz f<sub>H</sub>/B jest liczbą naturalną), to minimalną szybkością próbkowania przy której nie zajdą zniekształcenia jest f<sub>S</sub>=2B
-
-Jeżeli jednak pasmo B nie mieści się całkowitą liczbę razy w f<sub>H</sub> (iloraz f<sub>H</sub>/B nie jest liczbą naturalną), to wartość B należy zwiększyć do takiej najbliższej wartości B', która mieści się całkowitą ilość razy w f<sub>H</sub>. Wtedy minimalną szybkością próbkowania, przy której nie zajdą zniekształcenia aliasowe to f<sub>S</sub>=2B'. W ten sposób "ogony" replik nie tylko nie nachodzą na siebie, ale istnieje również zapas równy 2(B'-B).
 
 ## 2. Widmo sygnału dyskretnego i transformacje (DTFT, DFT, FFT) służące do obliczania tego widma oraz powiązania tych transformat.
 Sygnał dyskretny - sygnał, który powstał w wyniku dyskretyzacji (próbkowania) sygnału ciągłego (analogowego)
@@ -443,22 +420,148 @@ Impedancja widziana na zaciskac w płaszczyźnie A ma pewną część. Po zastos
     - sygnałami prawie okresowymi, które można przedstawić za pomocą sygnałów okresowych spełniających warunki Dirichleta - warunki dostateczne - jeżeli sygnał okresowy spełnia warunki Dirichleta, to można go przedstawić za pomocą szeregu Fouriera
 
 2. Warunki stosowania analizy wskazowej w analizie obwodów liniowych:
-    - pobudzenie x(t) jest sinusoidalne:
+- pobudzenie x(t) jest sinusoidalne:
 <div style="text-align: center;"> x(t)=X<sub>m</sub>cos(w<sub>o</sub>t + a) </div>
 
-    - pobudzenie trwa nieskończenie długo, czyli:
+- pobudzenie trwa nieskończenie długo, czyli:
 <div style="text-align: center;"> t∈(-∞, ∞) </div>
 
-    - układ znajduje się w stanie nieustalonym - odpowiedź zależy od pobudzenia oraz właściwości układu (nie zależy od warunków początkowych)
-    - układ jest stabilny - dla każdego ograniczonego sygnału pobudzającego x(t), odpowiedź układu y(t) również jest ograniczona (stabilność BIBO)
+- układ znajduje się w stanie nieustalonym - odpowiedź zależy od pobudzenia oraz właściwości układu (nie zależy od warunków początkowych)
+- układ jest stabilny - dla każdego ograniczonego sygnału pobudzającego x(t), odpowiedź układu y(t) również jest ograniczona (stabilność BIBO)
 
-TBD...
+3. Niekonkurencyjność rachunku operatorowego Laplace'a
+- W rachunku operatorowym Laplace'a dla sygnału nie przyczynowego operator Laplace'a "obcina" jego nieprzyczynową część. Przy analizie sygnałów okresowych działających "od zawsze" analiza operatorowa z użyciem prawostronnej trnsformaty Laplace'a spowodowałaby utratę części informacji o sygnale pobudzjącym (utrata informacji o czasie t<0 ze względu na granicę całkowania w definicji)
+![obrazek](images/15.1.PNG)
+
+- W analizie wskazowej wykonujemy tylko obliczenia na liczbach zespolonych, natomiast w analizie operatorowej wykonujemy obliczenia na wyrażeniach funkcyjnych zmiennej s, które są bardziej skomplikowane.
+- Analiza wskazowa z założenia służy do obliczeń w sinusoidalnych stanach ustalonych, natomiast analiza Laplace'a pozwala przeanalizować układy również w stanach nieustalonych. Nie ma praktycznego uzasadnienia stosować analizy Laplace'a do obliczeń sinusoidalnych stanów ustalonych, ponieważ analiza wskazowa umożliwia znacznie prostsze obliczenia.
 
 ## 16. Sformułuj i zapisz w postaci ogólnej prawa Kirchoffa oraz podaj własne przykłady ilustrujące treść tych praw.
+1. Napięciowe prawo Kirchoffa
+    W obwodzie zamkniętym suma spadków napięć wytraconych na wszystkich elementach obwodu jest równa sumie napięć wytworzonych przez źródło napięcia. Bilans napięć w obwodzie elektrycznym jest równy zero.
+![obrazek](images/16.1.PNG)
+    Dla napięć zwróconych zgodnie z orientacją oczka przyjmujemy znak dodatni, a dla skierowanych w przeciwnym kierunku - znak ujemny.
+    Przyjmując powyższe założenia możemy zapisać równanie:
+</div style="text-align: center;"> U=U<sub>R1</sub>+U<sub>R2</sub> </div>
+    Co po przekształceniu daje bilans napięć w obwodzie równy zero:
+</div style="text-align: center;"> U-U<sub>R1</sub>U<sub>R2</sub>=0 </div>
+
+2. Prądowe prawo Kirchoffa
+    W obwodzie zamkniętym w każdym węźle obwodu suma natężeń prądów wpływających do węzła jest równa sumie natężeń prądów wypływających z węzła. Bilans natężeń prądów dla każdego węzła w obwodzie jest równy 0.
+![obrazek](images/16.2.PNG)
+    Dla natężeń prądów wpływających do węzła przyjmujemy znak dodatni, a dla prądów wypływających - znak ujemny
+    Przyjmując powyższe założenie możemy zapisać równanie:
+<div style="text-align: center;"> I<sub>1</sub>+I<sub>2</sub>=I<sub>3</sub>+I<sub>4</sub> </div>
+    Co po przekształceniu daje nam bilans natężeń prądw równy zero:
+<div style="text-align: center;"> I<sub>1</sub>+I<sub>2</sub>-I<sub>3</sub>-I<sub>4</sub>=0 </div>
+
+3. Przykłady
+![obrazek](images/16.3.PNG)
+    Z PPK:
+<div style="text-align: center;"> I=I<sub>1</sub>+I<sub>3</sub>=I<sub>2</sub>+I<sub>4</sub> </div>
+<div style="text-align: center;"> I<sub>1</sub>=I<sub>2</sub>+I<sub>5</sub> </div>
+<div style="text-align: center;"> I<sub>4</sub>=I<sub>3</sub>I<sub>5</sub> </div>
+    Z NPK:
+</div style="text-align: center;"> U=U<sub>1</sub>+U<sub>2</sub> </div>
+</div style="text-align: center;"> U<sub>1</sub>=U<sub>3</sub>+U<sub>5</sub> </div>
+</div style="text-align: center;"> U<sub>2</sub>=U<sub>4</sub>+U<sub>5</sub> </div>
+
+![obrazek](images/16.4.PNG)
+    Z PPK:
+</div style="text-align: center;"> I<sub>1</sub>=I<sub>2</sub>+I<sub>3</sub> </div>
+    Z NPK:
+</div style="text-align: center;"> U=U<sub>1</sub>+U<sub>3</sub> </div>
+</div style="text-align: center;"> U<sub>2</sub>=U<sub>3</sub> </div>
 
 # **Pytania dla Telekomunikacji**
 ## 1. Omów problem analizy i syntezy zasobów w sieci telekomunikacyjnej.
+Synteza - polega na projektowaniu systemu pod zadane warunku jakie ma spełnić, tj. określenie ile i jakie zasoby są niezbędne do obsłużenia zadanego ruchu (strumienia zgłoszeń), przy jednoczesnym zapewnieniu wymaganych parametrów jakościowych. Synteza umożliwia określenie jakie zasoby i w jakiej ilości będą potrzebne do zrealizowania sieci zapewniającej określone usługi z daną jakością.
+
+Analiza - polega na sprawdzeniu, czy przy danych zasobach sieci, którymi aktualnie dysponujemy, jesteśmy w stanie obsłużyć ruch z wymaganą jakością. Przy podejściu analizy dane są pewne zasoby, a sprawdzane są parametry jakościowe systemu. Analiza pozwala zweryfikować, czy założenia (szacowania) wykonane w ramach syntezy zostały spełnione.
+
+O zasobach mówimy w różny sposób, w zależności od tego czy jest to sieć:
+- z komutacją kanałów:
+    - liczba dostępnych łączy międzywęzłowych
+    - moc przetwarzania w węźle
+- z komputacją pakietów:
+    - przepływność łączy
+    - pojemność buforów w systemie obsługi
+    - moc przetwarzania w węźle
+
+Podstawowy problem w realizacji każdej sieci sprowadza się do tego:
+- jak określić zasoby jakie powinna posiadać sieć i jak te zasoby rozdzielić pomiędzy poszczególne ścieżki w tej sieci dla obsługi zadanego ruchu
+lub odwrotnie:
+- mając dane zasoby, określić ile ruchu i jakie usługi telekomunikacyjne możemy obsłużyć
+
+Podstawowym zadaniem inżynierii ruchu jest więc odwzorowanie ruchu na zasoby sieci, aby osiągnąć określone cele wydajnościowe:
+- zorientowanie na ruch - bezpośrednio związane z uzyskaniem wymaganej jakości usług. Wielkościami, które są metrykami opisującymi tę wartość są uzależnienie od stosoanej technologii i np. w przypadku technologii pakietowej są to: prawdopodobieństwo straty pakietu, opóźnienie pakietu, zmienność opóźnienia
+- zorientowanie na zasoby - związana z optymalizacją wykorzystania zasobów sieciowych
+
+Pierwszym i zasadniczym celem obu podejść jest minimalizacja natłoku, który może wystąpić w dwóch podstawowych sytuacjach:
+- gdy zasoby sieciowe są niewystarczające lub nieodpowiednie do alokacji oferowanego ruchu
+- gdy strumienie ruchu są nieefektywnie odwzorowane w dostępne zasoby powodując, że fragmenty sieci są przeciążone, a tymczasem inne fragmenty sieci są niewykorzystane
+
+W pierwszej sytuacji, aby zlikwidować natłok dla nieefektywnie lokowanego ruchu w posiadanych zasobach wymagane jest stosowanie reguł równoważenia ruchu. Ich celem jest minimalizacja wystąpienia maksimów natłoku co równoważne jest minimalizacji maksimów wykorzystania zasobów. W efekcie właściwa alokacja zasobówpowoduje np. zmniejszenie strat zgłoszeń, zwiększenie poprawnie obsłużonego ruchu oraz zmniejszenie strat pakietów.
+
+W określeniu zasobów i zdolności obsługi należy także uwzględnić możliwość wystąpienia uszkodzeń w sieci w celu zapewnienia ciągłości usług (niezawodność działania sieci wraz z określonymi zasadami i regułami postępowania). MOżliwość wystąpienia uszkodzeń w sieci musi być ujęta w określeniu zasobów. Na ogół sprowadza się do określonej nadmiarowości w zasobach oraz zdolności umiejętnego kierowania ruchu i wykorzystania tej nadmiarowości.
+
+Zatem w sieci mamy do czynienia z:
+- sterowaniem ruchem - gwarantuje, że wydajność sieci jest maksymalizowana nawet w przypadku obciążenia lub uszkodzeń
+- sterowania zasobami - gwarantuje, że zaprojektowana sieć realizuje postawione cele przy minimalnych kosztach
+
+Zarówno problemy syntezy i analizy dotyczą:
+- odpowiedniego sformułowania opisu sieci oraz reguł jej działania
+- ustalenia odpowiedniego modelu do modelowania sieci w celu określenia w sposób analityczny jej ruchu
+- optymalizacji zasobów poprzez iterację obliczeń dla danego modelu i modyfikację pewnych parametrów w oparciu o otrzymane wyniki
+
 ## 2. Scharakteryzuj architektury wspierające realizację sieci IP QoS.
+Klasyczna sieć oparta na protokole IP nie zapewnia żadnej jakości (jst to tylko i wyłącznie Best Effort). W celu przekształcenia sieci IP w IP QoS (IP wspierającą zagwarantowane jakości), zaproponowano 2 różne architektury sieci: IntServ (skrót od Integrated Services) oraz DiffServ (skrót od Differentiated Services).
+
+Istnieje również trzecie podejście gwarantujące QoS dla sieci IP - MPLS (Multiprotocol Label Switching), jednak nie jest to określane w literaturze jako architektura, stąd też zostanie to opisane na samym końcu w ramach suplementu (tzn. wiedzieć, ale nie wychodzić przed szereg na egzaminie).
+
+1. Architektura IntServ
+    Architektura IntServ opisuje w jaki sposób uzyskać QoS w sieci IP. Określa szeroki zakres procedur w jaki sposób powinny być zestawiane ze sobą sesje połączeniowe, w jaki sposób powinno następować rozłączanie sesji połączeniowych, w jaki sposób zarządzać strumieniami w sieci IP.
+    IntServ ma za zadanie przydzielać zasoby (konkretne przepływności) dla poszczególnych strumieni.
+    W tej architekturze zasadniczym elementem zarządzającym strumieniami pakietów jest protokół RSVP (Resource Reservation Protocol) - słowo klucz: sygnalizacja. Pozwala on na rezerwację zasobów w momencie kiedy ma nastąpić wymiana pakietów w sieci. Protokół RSVP zapewnia zbliżone działanie sieci IP do klasycznych sieci z komutacją kanałów. RSVP pozwala na szczegółową rezerwację zasobów dla poszczególnych strumieni, a także umożliwia przesyłanie informacji zwrotnej do aplikacji po stronie użytkownika z wiadomością, czy wszystkie urządzenia sieciowe przez które ma przejść dany strumień wspierają QoS.
+
+    Nadawca najpierw wysyła wiadomość PATH do urządzenia końcowego. Wiadomość ta zawiera informację o rodzaju ruchu, dostarcza ona szczegółów na temat wymaganej przepływności i rozmiarze pakietów. Następnie przesyłana jest wiadomość zwrotna RESV od urządzenia końcowego do nadawcy. Jest to żądanie rezerwacji zasobów w urządzeniach pośredniczących. W tym momencie każde urządzenie sieciowe musi zarezerwować konkretne zasoby na potrzeby transmisji. Jeżeli wiadomość RESV dojdzie do nadawcy - oznacza to, że żadane zasoby zostały pomyślnie zarezerwowane.
+
+    Ważne: protokół RSVP jest odpowiedzialny za kontrolę strumieni, ale sam nie przenosi żadnych danych użytkownika! Za transport danych odpowiadają już inne protokoły (np. RTP). Rezerwacje zasobów zapewniane przez RSVP nie są pernamentne - użytkownik musi je odnawiać co określony czas. Jeżeli tego nie zrobi, to nastąpi samoczynne rozłączenie i zwolnienie zasobów.
+
+    W IntServ z RSVP najpierw następuje zgłoszenie żądania i rezerwacji zasobów (jak wyżej), potem wymiana pakietów oraz jeżeli to potrzebne - odnowienie rezerwacji zasobów. Protokół sygnalizacyjny RSVP jest osadzony na stosie protokołów wykorzystywanych w sieci IP.
+
+    Wady architektury IntServ (które zaprzeczają założeniom sieci IP tak na dobrą sprawę):
+    - strumienie są obsługiwane indywidualnie, zgodnie z aplikacją użytkownika
+    - konieczność pamiętania w routerach informacji o każdym indywidualnym strumieniu
+    - brak skalowalności - trudności przy realizacji sieci o dużej liczby strumieni i dużych przepływnościach (przeciążone routery rdzeniowe, zapotrzebowanie na dużą moc obliczeniową)
+
+    Obrazek przedstawiający jak działa RSVP w ramach architektury IntServ
+    ![obrazek](images/2.2.1.PNG)
+
+2. Architektura DiffServ
+    Podejście DiffServ jest nieco inne - zamiast rozpatrywać każdy strumień osobno, urządzenie sieciowe analizuje przesyłane pakiety. W tym modelu nie zakłada się żadnych powiąza między następującymi po sobie pakietami. Dzięki temu sieci z wykorzystaniem DiffServ są niewątpliwie skalowalne, natomiast obsługa skupia się przede wszystkim na obsłudze ruchu ze zdefiniowanymi różnymi klasami usług. DiffServ wykorzystuje do sprawnego działania pole TOS w nagłówku UPv4 (pole TC w nagłówku IPv6). Bardziej ogólne stwierdzenie: DiffServ wykorzystuje nagłówek IP. Pole definiujące rodzaj pakietu nazywa się polem DSCP (Differential Services Code Point). Dzięk temu można określić w jaki sposóbb powinien być przekazywany dany pakiet w obrębie sieci. DiffServ definiuje 2 rodzaje przekazywania pakietów: EF (Expedited Forwarding) oraz AF (Assured Forwarding).
+
+    Zadaniem usługi przesyłania przyspieszonego EF jest utrzymanie na niskim poziomie opóźnienia i jittera oraz zapewnienie niskiego poziomu strat pakietów. Pakiety należące do tej usługi mają też zagwarantowane pewne pasmo, a obsługiwany przez nią ruch jest natychmiast inicjowany przez routery dalej i ma bezwzględny priorytet nad innymi klasami. Dlateo musi on być starannie monitorowany i kształtowany w wejściu do sieci. Jednak w przeciwieństwie do innych klas ruchu, w tym przypadku niemożliwe będzie przesyłanie większej ilości ruchu niż to wynika z zawartego kontraktu, nawet gdyby w danym momencie sieć była nieobciążona.
+
+    Usługa przesyłania gwarantowanego AF zapewnia określoną przepustowość łąca, ale nie daje gwarancji dotyczącej wielkości opóźnienia pakietów. Określa się tu jedynie, że ruch zgodny z ustalonym profilem będzie dostarczony z prawdopodobieństwem nie niższym niż ustalony próg. W ramach AF wyróżnia się cztery ponumerowane klasy. Każdej klasie przypisana jest pewna część pasma dostępnego w obrębie danego węzła sieci, a w obrębie każdej klasy wyróżnia się trzy poziomy prawdopodobieństwa odrzucenia pakietu w momencie, gdy w danej klasie wystąpi określony poziom natłoku. Dzięki temu w w momencie natłoku w danej klasie, pakiety o wyżej zdefiniowanym prawdopodobnieństwie odrzucenia zostaną odrzucone na rzecz pakietów o "ważniejszych".
+
+    Zalety DiffServ:
+    - sieć nie widzi indywidualnej aplikacji, lecz strumień ruchu, który obsługuje w danym momencie, rozpoznany na podstawie pola DSCP
+    - klasyfikacja wynika z wprowadzonym usług sieciowych (klas). Obsługa zatem jest zależna od usługi sieciowej, a nie konkretnej aplikacji (żądania)
+    - uproszczenie funkcji wewnątrz sieci
+
+    ![obrazek](images/2.2.2.PNG)
+
+    Rysunek przedstawia docelową architekturę sieci ze wsparciem IP QoS. Rdzeń sieci ma obsługiwać dużą liczbę strumieni i być jednocześnie prosty pod względem funkcjonalnym (obsługa tylko kilku klas usług), natomiast na brzegu sieci mają być realizowane wszystkie złożone funkcje związane z QoS takie jak: klasyfikacja (wstępny przydział do określonej klasy), analiza zgodności (z zadeklarowanymi parametrami ruchowymi), cechowanie (ostateczne nadane cechy świadczącej o przynależności do określonej klasy usługi sieciowej) oraz obsługa pakietów (odrzucanie pakietów, kolejkowanie priorytetowe, kształtowanie ruchu).
+
+3. Technologia MPLS - dodatek
+    W dotychczas omawianych architekturach (IntServ i DiffServ) pomijaliśmy problem realizacji funkcji komutacji. Takie podejście można stosować, gdy intensywność pakietów, które podlegają obsłudze w węźle, nie jest stosunkowo duża. Jednakże, gdy mamy do czynienia z obsługą pakietów dla np. mowy, które są krótkie i ich intensywność moża być znaczna, to mamy już problem z brakiem mocy przetwarzania w węźle. Moc przetwarzania jest przecież niezbędna do określenia następnego węzła (trzeba skorzystać z tablicy routingu) i wykonania funkcji komutacji. Musi to zostać wykonane dla każdego pakietu z osobna. Jeżeli intensywność pakietów jest duża i tę sekwencję wykonujemy w warstwie IP, czyli na polach nagłówka protokołu IP pakietu, to zajmuje to wówczas sporo czasu w procesie przetwarzania, a tym samym wymaga znacznej mocy przetwarzania.
+
+    I teraz MPLS jst odpowiedzią na powyższe problemy. MPLS - Multiprotocol Label Switching jest to określona przez IETF koncepcja, która umożliwia efektywniejszą realizację w sieci takich funkcji jak: routing, komutacja i tym samym obsługa ruchu (przekazywanie pakietów).
+
+    Istotne cechy MPLS to: zawartość mechanizmów umożliwiających zarządzanie przepływem ruchu o różnorodnym stopniu rozdrobnienia, czyli ruchem między różnym sprzętem/maszynami/aplikacjami, niezależność od protokołów warstwy 2 i 3, prote etykiety o stałych długościach. W MPLS przenoszenie danych od źródła do odbiorcy ma miejsce wzdłuż etykietowo przełączanej ścieżki LSP (Label-Switeched Path). Dzięki temu dla zadanych pakietów tworzy się fizyczną ścieżkę po której mają być przesyłane. Pozwala to zbalansować wykorzystaie sprzętu w taki sposób, aby zmaksymalizować wykorzystanie dostępnych w obrębie sieci zasobów.
+
+
 ## 3. Przedstaw bilands energetyczny i scharakteryzuj jego znaczenie przy projektowaniu łącza radiowego.
 ## 4. System komórkowy GSM, architektura, podstawowe parametry i rodzaje usług.
 ## 5. Filtry cyfrowe o skończonej i o nieskończonej odpowiedzi impulsowej.
