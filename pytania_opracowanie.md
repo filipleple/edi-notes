@@ -561,10 +561,106 @@ Istnieje również trzecie podejście gwarantujące QoS dla sieci IP - MPLS (Mul
 
     Istotne cechy MPLS to: zawartość mechanizmów umożliwiających zarządzanie przepływem ruchu o różnorodnym stopniu rozdrobnienia, czyli ruchem między różnym sprzętem/maszynami/aplikacjami, niezależność od protokołów warstwy 2 i 3, prote etykiety o stałych długościach. W MPLS przenoszenie danych od źródła do odbiorcy ma miejsce wzdłuż etykietowo przełączanej ścieżki LSP (Label-Switeched Path). Dzięki temu dla zadanych pakietów tworzy się fizyczną ścieżkę po której mają być przesyłane. Pozwala to zbalansować wykorzystaie sprzętu w taki sposób, aby zmaksymalizować wykorzystanie dostępnych w obrębie sieci zasobów.
 
-
 ## 3. Przedstaw bilands energetyczny i scharakteryzuj jego znaczenie przy projektowaniu łącza radiowego.
+<div style="text-align: center;"> P<sub>odb</sub>[dBW]=P<sub>N</sub>[dBW]-L<sub>F</sub>[dB]+G<sub>nad</sub>[dB]+G<sub>odb</sub>[dB]-L<sub>całk</sub>[dB] </div>
+<div style="text-align: center;"> P<sub>odb</sub>[dBW]=P<sub>nad</sub>[dBW]+G<sub>nad</sub>[dB]+G<sub>odb</sub>[dB]-L<sub>całk</sub>[dB] </div>
+gdzie:
+
+- P<sub>odb</sub>[dBW] - moc jaka zaindukuje się w impedancji wejściowej antenty odbiorczej
+- P<sub>nad</sub>[dBW] - moc wyprowadzana przed antenę nadawczą(=P<sub>N</sub>-L<sub>F</sub>)
+- P<sub>N</sub>[dBW] - moc nadajnika
+- G<sub>nad</sub>[dB] - zysk anteny nadawczej
+- G<sub>odb</sub>[dB] - zysk anteny odbiorczej
+- L<sub>całk</sub>[dB] - całkowite tłumienie propagacyjne sygnału w łączu radiowym, na które składa się tłumienie wynikające z warunków wolnej przestrzeni (odległości) i tłumienie dodatkowe wynikające np. z obiektów znajdujących się w I strefie Fresnela
+- L<sub>F</sub>[dB] - tłumienie w fiderze antenowym
+
+Bilans energetyczny
+- Obrazuje jaka moc zaindukuje się na impedancji wejściowej anteny odbiorczej w zależności od mocy wypromieniowanej przez antenę nadawczą ale także od parametrów obu anten i całkowitego tłumienia występującego na drodze przesyłanego sygnału radiowego.
+- Całkowitą moc sygnału odebranego stanowi suma mocy sygnału nadanego oraz zysku anteny nadawczej i odbiorczej, przy uwzględnieniu tłumienia zachodzącego przy zjawisku propagacji. Im większa moc sygnału nadawanego oraz zyski obu anten, tym większy będzie poziom energetyczny sygnału odbieranego. Należy natomiast pamiętać, że im większa moc sygnału nadawanego, tym większe będą też zakłócenia wprowadzane do środowiska propagacyjnego - ponieważ każdy sygnał użyteczny jest także sygnałem zakłócającym dla innych stacji bazowych. Na poziom sygnału odbieranego wpływa również tłumienie toru nadawczego i odbiorczego, a także rzeczywiste tłumienie, w którego skład wchodzi tłumienie wolnej przestrzeni (podstawowe, wynikające z rozproszena) i tłumienie dodatkowe (związane ze środowiskiem).
+
+Znaczenie przy projektowaniu łącza radiowego
+- Przy projektowaniu łącza radiowego ma on bardzo ważne znaczenie. Pozwala określić wymagane parametry techniczne anten oraz wymaganą moc sygnału nadawanego (mając na uwadze możliwości finansowe inwestora), tak aby moc sygnału odebranego spełniała założenia projektowe i była zgodna z prawem. Pozwala także szacować jaki wpływ będzie miała odległość pomiędzy dwoma antenami na moc sygnału odebranego.
+- Bilans energetyczny ma niezwykle ważne znaczenie przy projektowaniu łącza radiowego, ponieważ znając zyski obu anten i tłumienie wnoszone przez elementy fizyczne tego łącza oraz środowisko propagacyjne, możemy tak dobrać moc sygnału nadawanego, aby na wejścio odbiornika uzyskać wymagany poziom mocy sygnału, wynikający z czułości użytkowej tego odbiornika. Czułość odbiornika to minimalna wartość napięcia, które musi zaindukować się na wejściu odbiornika, aby zapewnić jego poprawną pracę. Czułość ta wyznaczana jest w oparciu o wymagany na wejściu odbiornika stosunek sygnału do szumu, przy uwzględnieniu jego szumów własnych. Znając czułość użytkową odbiornika, moc nadajnika dobierana jest w taki sposób, aby w punkcie odbioru, tuż przy antenie odbiorczej uzyskać wymaganą wartość natężenia pola E<sub>min</sub>, dodatkowo powiększoną o współczynnik ochronny A (zależny od poziomu zakłóceń i szumów):
+<div style="text-align: center;"> E<sub>min</sub>'=E<sub>min</sub>+A
+
+Wówczas otrzymuje się faktyczny poziom energetczny sygnału, który należy zapewnić na granicy zasięgu systemu radiowego, aby odbiornik poprawnie pracował w obecności zakłóceń.
+
 ## 4. System komórkowy GSM, architektura, podstawowe parametry i rodzaje usług.
+1. Podstawowe informacje
+    GSM jest jednym ze standardów sieci komórkowych 2 generacji. Transmisja w tym systemie jest całkowicie cyfrowa. Zapewnia to nieporównywalnie większe bezpieczeństwo rozmów niż w systemie 1 generacji (chociaż obecnie stosowane zabezpieczenia można złamać w stosunkowo krótkim czasie).
+    W obrębie GSM istnieje ustandaryzowany zbiór usług transmisji, protokołów oraz interfejsów. Wraz z systemem GSM wprowadzono karty SIM. Transmisja w systemie GSM opierała się na komutacji kanałów, podstawową usługą oferowaną użytkownikowi była transmisja mowy (rozmowa telefoniczna). Wprowadzoną nowością były wiadomości SMS. promień komórki był przeważnie mniejszy niż w systemach 1 generacji i wynosił do ok. 35 km.
+2. Podstawowe parametry
+- obsługa na wielu pasmach częstotliwościowych od 450 do 1900 mechanizmy
+- kanały mają szerokość 200 kHz (pasmo kanału radiowego)
+- technika dupleksu FDD (Frequency Division Duplex) - duplex z podziałem częstotliwości
+- częstotliwości łącza w górę (od terminala ruchomego do stacji bazowej) są zawsze mniejsze od częstotliwości łącza w dół (od stacji bazowej do terminala ruchomego)
+- technika wielodostępu TDMA (Time-Division Multiple Access) - zwielokrotnienie czasowe. 8 lub 16 kanałów roboczych (chodzi o kanały rozmówne) na każdy kanał częstotliwościowy
+- przepustowość kanału radiowego: 270,8 kb/s (czyli na jeden kanał roboczy przypada 1/8 lub 1/16 tej wartości)
+- modulacja GMSK z parametrem BT=0,3 (przy modulacji bierze się pod uwagę 3 bity: bieżący, następny i poprzedni)
+- maksymalna przepływność kodera mowy: 13 kb/s. Są też inne możliwości, ale brak spójności pośród materiałów źródłowych
+- transmisja danych (faks, teletex - nie mylić z teletekstem, itp.) z szybkościami: 9,6 kb/s; 4,8 kb/s; 2,4 kb/s (w podstawowym wariancie, nie mówimy tutaj o GPRS czy też EDGE)
+- stabilna częstotliwościowa rzędu 0,1 ppm
+- liczba kanałów radiowych:
+    - GSM 450: 35
+    - E-GSM (GSM 900): 124
+    - DCS (GSM 1800): 374
+- przełączanie połączeń - twarde
+3. Rodzaje usług
+- Usługi podstawowe:
+    - transmisja sygnałów mowy
+    - transmisja danych (np. faksm teletx, wideotex, transmisja przeźroczysta) z maksymalną szybkością 9,6 kb/S
+    - transmisja krótkich wiadomości tekstowych SMS
+- Usługi dodatkowe:
+    - blokowanie wychodzących połączeń
+    - telekonferencje
+    - zawieszenie trwającego połączenia w celu odbioru nowego połączenia
+    - tworzenie zamkniętych grup abonentów, którzy mogą się porozumiewać tylko między sobą
+    - chwilowe zawieszanie połączenia w celu poinformownania o jego koszcie
+    - przekazywanie rozmów (call forwarding)
+    - pauzowanie rozmowy
+    - później wprowadzono rozszerzenia do GSM - GPRS oraz EDGE. Obydwa te standardy miały za zadanie wspierać podwyższoną szybkość transmisji danych z wykorzystaniem komutacji pakietów. W EDGE wykorzystywano też inną modulację - 8PSK. Technologia GPRS jest często nazywana 2,5G, a technologia EDGE-2,75G
+4. Architektura systemu GSM
+    Opis elementów systemu GSM:
+    - MS - Mobile Station - terminal ruchomy. Urządzenie końcowe po stronie abonenta. Aby realizować poprawnie swoje funkcje, musi połączyć się z pobliską stacją bazową.
+    - BTS - Base Transceiver Station - stacja bazowa. Pośredniczy w połączeniu stacji ruchomej z systemem GSM i realizuje funkcje nadawczo-odbiorcze. Zawiera od 1 do 16 aparatów nadawczo-odbiorczych, z których każdy obsługuję inną parę kanałów radiowych (w relacjach MS-BTS i BTS-MS). W systemie GSM znaczna część pomiarów związanych z jakością (pomiary mocy średniej, BER) jest relizowana w stacjach ruchomych, dzięki temu koszt stacji bazowej może być niższy niż w przypadku stacji bazowych komórkowych sieci analogowych.
+    - BSC - Base Station Controller - sterownik stacji bazowych. Steruje i monitoruje pracę wielu stacji bazowych (typowo kilkadziesiąt). Głównym jego zadaniem jest zarządzanie kanałami radiowymi i logicznymi, będącymi w dyspozycji stacji bazowych oraz zapewnienie funkcji komunikacyjnych z centralą radiokomunikacyjną MSC i centrum operacyjno-utrzymaniowym OMC.
+    - MSC - Mobile Swtiching Center - centrala radiokomunikacyjna. Interfejs między sięcią komórkową i PSTN lub ISDN. Spełnia m.in. rolę centrali telefonicznej zdolnej ukierunkować połączenie między abonentem sieci komórkowej i sieci telefonicznej
+    - HLR - Home Location Register - baza danych HLR przechowuje różne dane dotyczące abonentów zarejestrowanych w obszarze, który jest ich obszarem macierzystym, określonym przez stały adres zamieszkania lub siedzibę firmy. Dane te obejmują m.in. numer telefonu sieci publicznej, dozwolone usługi, z których abonent może korzystać, tajny klucz abonenta niezbędny w procesie uwierzytelniania i szyfracji, czy też przejściowe informacje, takie jak np. adres VLR, który określa aktualny dostęp do stacji ruchomej.
+    - VLR - Visitor Location Register - baza danych VLR zawiera dane abonentów aktualnie zarejestrowanych w obszarze pokrytym przez komórki określonej centrali MSC. Są w niej zawarte najczęściej te same dane jak w bazie danych HLR. O ile baza HLR w momencie przyjazdu gościa nie dopisuje żadnych dodatkowych rekordów, tak baza VLR jest już raczej bazą dynamiczną, zależną od obecnych abonentów-gości.
+    - AuC - Authentication Center - komputer współpracujący z HLR i VLR, który relizuje przetwarzanie zgodne z algorytmami uwierzytelniania i szyfracji. AuC generuje wiadomości służące do uwierzytelniania abonentów oraz wartości parametrów niezbędnych w procesie szyfracji i deszyfracji.
+    - OMS - Operation and Maintenance Center - element odpowiedzialny za nadzorowanie pracy podległych mu urządzeń - autodiagnostyka i uruchamianie urządzeń zapasowych w przypadku wykrycia uszkodzęń, archiwizowanie uszkodzeń i błędów w funkcjonowaniu urządzeń. W przypadku niskiej jakości kanałó, OMS powiadamia o tym operatora. Ponadto OMC może przesyłać wyniki pomiarów natężenia ruchu oraz o ewentualnych przeciążeniach stacji bazowych. Jeżeli operator zdecyduje się na rozbudowę stacji bazowych, to OMS może zdalnie przeprowadzić rekonfigurację BTS przez BSC
+
+    ![obrazek](images/2.4.1.PNG)
+
 ## 5. Filtry cyfrowe o skończonej i o nieskończonej odpowiedzi impulsowej.
+Filtr cyfrowy jest algorytmem, który usuwa z sygnału nieporządane składowe
+1. FIR (Finite Impulse Response filter) - filtr o skończonej odpowiedzi impulsowej
+    Zalety:
+    - operacja splotu liniowego współczynników filtru z próbkami sygnału (bardzo prosty algorytm)
+    - względnie łatwe projektowanie
+    - typowe filtry mają liniową fazę, a więc stałe opóźnienie dla wszystkich częstotliwości, nie wprowadzają zniekształceń fazowych
+    - zawsze są stabilne, ponieważ bieguny są położone w punkcie zerowym: jeżeli wyłączymy sygnał wejściowy, po pewnym czasie sygnał na wyjściu również stanie się zerowy
+    - jest nierekursywny - odpowiedź nie zależy od poprzednich odpowiedzi
+    - łatwy do implementacji w typowych systemach DSP
+    Wady:
+    - stosowanie filtrów o dużej długości by zapewnić dobre tłumienie i wąskie pasmo przejściowe
+    - dużo obliczeń dla "długich" filtrów (zalecane stosowanie szybkiego splotu)
+    - duża zajętość pamięci (współczynniki, bufor próbek)
+    - opóźnienie sygnału przez filtry - zwiększa się z długością filtru
+
+    Im większa długość filtru tym jest on bliższy idealnemu. Ale są tego wady. Zwiększenie długości filtru powoduje:
+    Zalety:
+    - węższe pasmo przejściowe
+    - mniejsze zafalownia w paśmie przepustowym
+    - większe tłumienie w paśmie zaporowym
+    - ogólnie bardziej skuteczna filtracja
+    Wady:
+    - więcej obliczeń
+    - większa zajętość pamięci
+    - większe opóźnienie między wejściem a wyjściem filtru
+    TBD...
+
+
 ## 6. Zasada działania i rodzaje sztucznych sieci neuronowych.
 ## 7. Przedstaw zasadę pracy systemów echolokacyjnych i zdefiniuj ich podstawowe parametry eksploatacyjne.
 ## 8. Omów budowę, właściwości i zastosowania wielowiązkowych systemów echolokacyjnych.
