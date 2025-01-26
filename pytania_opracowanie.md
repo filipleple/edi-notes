@@ -774,10 +774,102 @@ Kluczowe dla poprawnego funkcjonowania ANN są: duży, odpowiednio dobrany zbió
     W tym rodzaju ANN uczy się na podstawie dostarczonych danych wejściowych, wyszukuje dobre (z jej punktu widzenia) zależności i dokonuje klasyfikacji podobnych odpowiedzi (takie grupowanie w klastry). Nie występuje tutaj element weryfikujący postępy treningu. Element zbioru uczącego/danych treningowych zawiera tylko {danę wejściową}.
 
 - uczenie sztucznej sieci neuronowej ze wzmocnieniem
+    Występuje np. przy kontroli robotów czy grach. Agent/rozwiązanie uczy się rozpoznawać środowisko, w którym aktualnie się znajduje. W tego typu rodzaju treningu sieci trudno jest dostarczyć dobry zbiór danych treningowych, więc agent tylko na podstawie informacji zwrotnej ze środowiska w zależności od podjętych przez niego kroków (dobre czy złe) będzie nagradzany. Element zbioru uczącego/danych treningowych zawiera tylko {danę wejściową, jakąś odpowiedż, nagrodę za tę odpowiedź}
 
+2. Rodzaje sztucznych sieci neuronowych
+Tutaj trzeba mieć na uwadze, że rok w rok przybywa wiele różnych struktur w jakie połączone są sztuczne neurony. Na pewno można podzielić ANN na sieci składające się jedynie z warstwy wejściowej i warstwy wyjściowej (już raczej nie są używane, bo komputery mają większe zdolności obliczeniowe niż kiedyś + takie sieci nie są w stanie rozwiązać skomplikowanych problemów) oraz te składające się z warstwy wejściowej, jednej lub więcej warstw ukrytych i warstwy wyjściowej. ANN z jedną warstwą ukrytą to sieć płaska, a ANN z dwiema lub więcej warstwami ukrytymi to sieć głęboka (liczba warstw ukrytych sieci oraz liczby neuronów w każdej z warstw zależy od rozwiązywanego problemu). Podział może również dotyczyć fomy przekazywania informacji pomiędzy neuronami, np.:
+- feedforward - struktura jak na rysunku pierwszym odpowiedzi na to pytanie. Sztuczne neurony połączone są między sobą w sąsiednich warstwach ukrytych, a informacje przekazywane są od warstwy wejściowej, przez kolejne warstwy do warstwy wyjściowej (informacje nie powracają do poprzednich warstw)
+- rekursywne/rekurencyjne - informacje napływające do neuronu nie pochodzą tylko od neuronów z warstwy poprzedniej
+... i formy połączeń neuronów, np.:
+- splotowe - przetwarzanie obrazów
+- autoenkodery - przetwarzanie mowy
+
+![obrazek](images/2.6.4.PNG)
 
 ## 7. Przedstaw zasadę pracy systemów echolokacyjnych i zdefiniuj ich podstawowe parametry eksploatacyjne.
+Systemy echolokacyjne - system określający parametry (np. położenie) obiektów z wykorzystaniem echa sygnału.
+
+Ze względu na używany fizyczny rodzaj sygnałów systemy echolokacyjne dzielimy na:
+- radiolokacyjne używające fal elekromagnetycznych w powietrzu
+- hydrolokacyjne używające fal akustycznych w wodzie
+- aerolokacyjne używające fal akustycznych w powietrzu
+- laserowe używające fal optycznych w powietrzu
+
+Zasada działania - nadajnik systemu echolokacyjnego wysyła sygnał sondujący. Sygnał ten rozchodząc się w przestrzeni (kanale) natrafia na odległy obiekt (cel), od którego się odbija i jako sygnał echa jest odbierany przez odbiornik systemu. Odbiornik wykrywa sygnał echa i mierzy czas t od momentu wysłania sygnału sondującego do momentu odebrania sygnału echa. Znając prędkość rozchodzenia się sygnałów c oblicza się odległość celu od systemu jako R=ct/2
+
+W systemach echolokacyjnych stosuje się fale elektromagnetyczne (w radarach), akustyczne (w sonarach, echosondach) lub sygnał optyczny w systemach laserowych (lidar, ladar). Im większa częstotliwość pracy, tym krótszy zasięg.
+
+Położenie celu wyznacza się zwykle we współrzędnych biegunowych określających namiar. Namiarem mogą to być np. kąty azymutu (względem północy) i elewacji (względem powierzchni ziemii). Układem odniesienia mogą być współrzędne geograficzne lub lokalne (samolot, statek lub dowolny pojazd).
+![obrazek](images/2.7.1.PNG)
+
+Pomiar kierunku dokonuje się wykorzystując kierunkowe nadawanie i/lub odbiór sygnałów przez anteny systemu echolokacyjnego. Znacznie rzadziej zamiast kierunkowego nadawania i odbioru położenie celu na płaszczyźnie wyznacza się z pomiaru dwóch odległości (tak jak na rysunku niżej, czyli obliczona odległość tworzy promień okręgu i przecięcie się dwóch okręgów daje dwa możliwe położenia, więc niefajnie).
+![obrazek](images/2.7.2.PNG)
+
+Podstawowe zadania
+- wykrycie celu w obserwowanej przestrzeni (detekcja) - polega na stwierdzeniu, czy w danym momencie odbiera sygnał echa, czy zakłócenia
+- określenie położenia celu (lokalizacja) - względem systemu echolokacyjnego odbywa się głównie poprzez pomiar jego odległości i namiarów, czyli kątów między kierunkiem, na którym leży wykryty cel, a osiami układu odniesienia.
+- oszacowanie wybranych parametrów celu (estymacja parametrów) - polega na określeniu wielkości celu, jego prędkości, kierunku echa, itp. Informacje o tych parametrach zawarte są niekiedy w sygnale echa i mogą być z niego wydobyte
+- klasyfikacja celu - to zaliczenie go do szerokiej (gorzej) lub wąskiej (lepiej) klasy obiektów. Np. wykryty cel to statek (szeroka klasa) lub wykryty obiekt to kuter (wąska klasa).
+- identyfikacja celu - to przyporządkowanie go do bardzo wąskiej klasy obiektów np. samolot Boeing 737 lub dokładniej o numerze
+
+Podstawowe parametry ekspolatacyjne systemów echolokacyjnych
+- zasięg - nazywamy maksymalną odległość, z której system wykrywa z założonym prawdopodobieństwem określony cel w istniejących warunkach propagacyjnych. Zależy on od parametrów technicznych systemu, parametrów wykrywanego obiektu (siła celu), warunków propagacji fal w ośrodku oraz prawdopodobieństwa detekcji i fałszywego alarmu
+- dokładność pomiaru odległości - wartość tego parametru zależna jest od dwóch zmiennych wykorzystywanych w poniższym wzorze. Ewentualne błędy mogą być spowodowane dynamicznymi i lokalnymi zmianami prędkości propagacji c w ośrodku, rozchodzeniem się fal po liniach krzywych oraz niejednoznacznością w momencie przyjścia impulsu echa (niedokładna wartość zmiennej T)
+<div style="text-align: center;"> R = cT/2 </div>
+    gdzie:
+    c - prędkość fali w ośrodku
+    T - czas między momentem emisji impulsu sondującego i momentem odbioru sygnału echa
+
+- dokładność określenia namiaru - jest to maksymalny błąd między rzeczywistym namiarem a namiarem zamierzonym. Dokładność określenia namiaru zależy przede wszystkim od szerokości charakterystyki kierunkowej (wiązki) i jest tym lepsza im jest ona węższa.
+- rozdzielczość wgłębna - rozdzielczością wgłębną nazywamy najmniejszą odległość jednakowych celów (punktowych) obserwowanych pod tym samym kątem, przy której sygnały echa są rozróżnialne
+    ![obrazek](images/2.7.3.PNG)
+    τ - czas trwania impulsu echa
+    B - szerokość widma sygnału
+    ![obrazek](images/2.7.4.PNG)
+
+- rozdzielczość kątowa - rozdzielczością kątową nazywamy najmniejszy kąt między celami punktowymi, przy którym na wyjściu odbiornika możemy rozróżnić dwa oddzielne echa. Przyjmuje się zwykle, że rozdzielczość kątowa jest równa szerokości wiązki. (Jednak należy pamiętać, że istnieją metody poprawiające rozdzielczość kątową)
+- sektor kątowy - jest to sektor, w którym dokonuje się przeszukiwania
+- czas przeszukiwania obszaru - przy pewnym położeniu wiązki obserwujemy przestrze stożkową o kątach wierzchołkowych θ (horyzontalny) i φ (wertykalny), które są umownymi szerokościami kątowymi wiązki oraz przez zasięg systemu R. Czas potrzebny na przeszukanie szerszego sektora kątowego (Θ,Φ) wynosi co najmniej:
+    ![obrazek](images/2.7.5.PNG)
+    Jak można zauważyć jest to po prostu wyznaczenie stosunku między kątami i przemnożenie tych stosunków przez wartość t.
+
+    Przy założonym zasięgu i zachowanej rozdzielczości, czas przeszukania obszaru skraca się tyle razy, ile jest równocześnie wytworzonych wiązek - w stosunku do systemu jednowiązkowego. Oznacza to że zwiększenie ilości wiązek będzie skracać czas przeszukiwania obszaru.
+
 ## 8. Omów budowę, właściwości i zastosowania wielowiązkowych systemów echolokacyjnych.
+Za pomocą anteny nadawczej wysyłany jest sygnał sondujący (sygnał ten ma określoną szerokość wiązki, która to determinuje nam przeszukiwany sektor). Sygnał ten zostaje odbity (od dna, przeszkód, obiektów) i powraca jako sygnał, zwany sygnałem echa.
+
+1. Budowa
+Sygnał echa rejestrowany jest przez wiele anten odbiorczych o różnych charakterystykach kierunkowych. Docierające do anten odbiorczych składowe sygnału mają różne parametry (np. moc, fazę, częstotliwość czy też opóźnienie). W wielowiązkowych systemach hydrolokacyjnych wykorzystywane są wieloantenowe anteny liniowe/płaskie/cylindryczne.
+
+W bloku obróbki analogowej odbywa się wzmacnianie, filtrowanie, detekcja kwadraturowa (przesuwa widmo sygnału do pasma podstawowego z zachowaniem fazy odbieranych sygnałów). Sygnały te przetwarzane są przez blok obróbki analogowej na postać cyfrową. BOA jest urządzeniem wielokanałowym, a liczba niezależnych kanałów jest równa liczbie niezależnych elementów anteny.
+
+Beamformer to wielowiązkowy filtr przestrzenny, przetwarza sygnały w celu wytworzenia zespołu odchylonych wiązek, które to stanowią wstępne zobrazowanie przeszukiwanego obszaru. Głównym zadaniem jest określenie kierunku przyjścia fali, lecz dokonuje również przestrzennej filtracji szumu akustycznego emitowanego przez ośrodek wodny. Jest to główny powód dla którego beamformer jest umieszczony przed blokiem detekcji. Po odszumieniu sygnału łatwiej wykonuje się detekcję.
+
+Zadaniem bloku detekcji jest odpowiednie zinterpretowanie otrzymanego obrazu (np. detekcja i klasyfikacja obiektów). Zespół zobrazowania pozwala na prezentację otrzymanych wyników (np. na ekranie komputera)
+
+![obrazek](images/2.8.1.PNG)
+
+2. Właściwości
+- beamforming stosowany jest tylko i wyłączenie w odbiornikach
+- dużą dokładność określenia kąta zapewniają wąskie wiązki, a dobrą rozdzielczością - właściwe zachodzenie na siebie sąsiednich wiązek
+- wiązki przylegają do siebie i pokrywają cały założony kątowy sektor obserwacji (duża szerokość kątowa obserwacji)
+- przy założonym zasięgu i zachowanej rozdzielczości, czas przeszukania obszaru skraca się tyle razy, ile jest równocześnie wytworzonych wiązek - w stosunku do systemu jednowiązkowego
+- liczba niezależnych kanałów BOA i beamformera jest równa liczbie niezależnych elementów anteny
+- zazwyczaj wiązki odchylają się o całkowitą wielokrotność kąta równego szerekości wiązki centralnej - rys. 1
+- gdy beamformer wytwarza odchylone wiązki tylko w płaszczyźnie poziomej lub tylko w płaszczyźnie pionowej, wówczas liczba kanałów jest równa odpowiednio liczbie kolumn lub liczbie wierszy anteny. Zwiera się wówczas elementy anteny w wierszach lub kolumnach i otrzymuje antenę liniową (w celu wytworzenia jednej odchylonej wiązki, w każdym kanale opóźnia się sygnał tak, aby opóźnienie we wszystkich kanałach było jednakowe. Wszystkie opóźnione sygnały sumuje się i otrzymuje sygnał w danej odchylonej wiązce. Wiązka odchyla się o zadany kąt i ulega poszerzeniu - wniosek: nie należy stosować zbyt szerokiego sektora jednoczesnej obserwacji - rys. 2)
+- w szyku punktowym zbyt duża odległość punktów powoduje pojawienie się listków dyfrakcyjnych przy odchyleniu wiązek. Charakterystyka kierunkowa pojedynczego elementu zmniejsza poziom listków dyfrakcyjnych
+![obrazek](images/2.8.2.PNG)
+
+3. Zastosowania w systemach
+- systemy hydrolokacyjne (ze względu na małą prędkość propagacji) do obrazowania dna morskiego
+- systemy radiolokacyjne (w celu uniknięcia obrotu mechanicznego dużych anten)
+- diagnostyka ultradźwiękowa (w celu uniknięcia obrotu mechanicznego przetwornika)
+
+4. Zastosowania na przykładach
+- wykrycie obiektu (celu) - detekcja
+- określenie położenia obiektu - lokalizacja
+- określenie parametrów celu (wielkości, prędkości) - estymacja parametrów
+- klasyfikacja (np. okręt podwodny) i identyfikacja obiektu (np. typ okrętu)
 
 # **Pytania dla Systemów Wbudowanych Czasu Rzeczywistego**
 ## 1. Wymień 3 główne typy silników krokowych i scharakteryzuj jeden z nich.
