@@ -448,16 +448,21 @@ Impedancja widziana na zaciskac w płaszczyźnie A ma pewną część. Po zastos
     - sygnałami prawie okresowymi, które można przedstawić za pomocą sygnałów okresowych spełniających warunki Dirichleta - warunki dostateczne - jeżeli sygnał okresowy spełnia warunki Dirichleta, to można go przedstawić za pomocą szeregu Fouriera
 
 2. Warunki stosowania analizy wskazowej w analizie obwodów liniowych:
-    - pobudzenie x(t) jest sinusoidalne:
+- pobudzenie x(t) jest sinusoidalne:
 <div style="text-align: center;"> x(t)=X<sub>m</sub>cos(w<sub>o</sub>t + a) </div>
 
-    - pobudzenie trwa nieskończenie długo, czyli:
+- pobudzenie trwa nieskończenie długo, czyli:
 <div style="text-align: center;"> t∈(-∞, ∞) </div>
 
-    - układ znajduje się w stanie nieustalonym - odpowiedź zależy od pobudzenia oraz właściwości układu (nie zależy od warunków początkowych)
-    - układ jest stabilny - dla każdego ograniczonego sygnału pobudzającego x(t), odpowiedź układu y(t) również jest ograniczona (stabilność BIBO)
+- układ znajduje się w stanie nieustalonym - odpowiedź zależy od pobudzenia oraz właściwości układu (nie zależy od warunków początkowych)
+- układ jest stabilny - dla każdego ograniczonego sygnału pobudzającego x(t), odpowiedź układu y(t) również jest ograniczona (stabilność BIBO)
 
-TBD...
+3. Niekonkurencyjność rachunku operatorowego Laplace'a
+- W rachunku operatorowym Laplace'a dla sygnału nie przyczynowego operator Laplace'a "obcina" jego nieprzyczynową część. Przy analizie sygnałów okresowych działających "od zawsze" analiza operatorowa z użyciem prawostronnej trnsformaty Laplace'a spowodowałaby utratę części informacji o sygnale pobudzjącym (utrata informacji o czasie t<0 ze względu na granicę całkowania w definicji)
+![obrazek](images/15.1.PNG)
+
+- W analizie wskazowej wykonujemy tylko obliczenia na liczbach zespolonych, natomiast w analizie operatorowej wykonujemy obliczenia na wyrażeniach funkcyjnych zmiennej s, które są bardziej skomplikowane.
+- Analiza wskazowa z założenia służy do obliczeń w sinusoidalnych stanach ustalonych, natomiast analiza Laplace'a pozwala przeanalizować układy również w stanach nieustalonych. Nie ma praktycznego uzasadnienia stosować analizy Laplace'a do obliczeń sinusoidalnych stanów ustalonych, ponieważ analiza wskazowa umożliwia znacznie prostsze obliczenia.
 
 ## 16. Sformułuj i zapisz w postaci ogólnej prawa Kirchoffa oraz podaj własne przykłady ilustrujące treść tych praw.
 
