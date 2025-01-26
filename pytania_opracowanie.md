@@ -658,10 +658,124 @@ Filtr cyfrowy jest algorytmem, który usuwa z sygnału nieporządane składowe
     - więcej obliczeń
     - większa zajętość pamięci
     - większe opóźnienie między wejściem a wyjściem filtru
-    TBD...
+    
+    Transmitancja filtru FIR w dziedzinie częstotliwości zmiennej zespolenej z - opóźnieniu sygnału o jedną próbkę odpowiada z<sup>-1</sup>:
+<div style="text-align: center;"> y[n]=h<sub>0</sub>x[n]+h<sub>1</sub>x[n-1]+... </div>
+<div style="text-align: center;"> H[z]=h<sub>0</sub>z</sup>-1</sup>+h<sub>1</sub>z<sup>-2</sup>+... </div>
 
+    Transmitancja może być zapisana też w ten sposób:
+<div style="text-align: center;"> H(z)=k(1-q<sub>1</sub>z<sup>-1</sup>)(1-q<sub>2</sub>z<sup>-1</sup>)(1-q<sub>3</sub>z<sup>-1</sup>)...(1-q<sub>N-1</sub>z<sup>-1</sup>) </div>
+    gdzie:
+    k - stałe wzmocnienie
+    q<sub>1</sub> - zera transmitancji
+
+    Schemat filtru FIR (współczynniki oznacza się czasmi literą b)
+![obrazek](images/2.5.1.PNG)
+
+![obrazek](images/2.5.2.PNG)
+
+
+Transmitancja filtru FIR o długości N posiada:
+- N-1 zer (w parach zespolonych sprzęrzonych)
+- N-1 biegunów położonych w punkcie zerowym
+Z tego względu filtry FIR są zawsze stabilne
+
+Przy filtracji używane są okna czasowe (von Hanna, Hamminga, Blackmana, Kaissera).
+Użycie okna powoduje zwiększenie (polepszenie) tłumienia w paśmie zaporowym. Zmniejszane są zafalowania w paśmie przepustowym. Wytłumienie współczynników na końcach okna powoduje zmniejszenie efektywnej długości filtru - poszerzenie pasma przejściowego. Trzeba to zrekompensować zwiększeniem długości filtru.
+
+Częstotliwość graniczna - granica pomiędzy pasmem przepustowym a zaporowym
+
+Charakterystyka fazowa jest zawsze liniowa. Daje nam to:
+- stałe opóźnienie grupowe (ujemna pochodna charakterystyki fazowej). A dzięki temu:
+    - jeżeli mamy sygnał o złożonym widmie (np. mowa, muzyka), to wszystkie widmowe są opóźniane przez filtr o tę samą liczbę próbek
+    - zależności fazowe między składowymi widmowymi na wyjściu filtru są takie same jak na wejściu
+    - liniowofazowy filtr FIR nie wprowadza zniekształceń fazowych - ważna cecha tych filtrów
+
+Metoda projektowania okienkowa - prosta, działająca ale nieoptymalna
+- projektujemy idealną charakterystykę w dziedzinie częstotliwości
+- obliczamy odpowiedź impulsową (IFFT, ale dla typowych charakterystyk bez IFFT)
+- przycinamy funkcją okna do żądanej długości
+- przesuwamy na osi czasu aby zaczynała się w 0
+I gotowe, mamy współczynniki filtru
+
+Jeśli filtr pracuje na sygnale ciągłym, teoretycznie nieskończonym (np. sygnał z mikrofonu):
+- można przetwarzać próbkę po próbce, co daje minimalizację opóźnień
+- lub przetwarzać blokowo - zebranie bloku próbek i przetwarzanie go na raz, co zwiększa opóźnienie, ale wydajniejsza filtracja
+(włączamy się z filtracją w pewnym momencie, wcześniej były już próbki, ale mytraktujemy je jako zera, więc pierwsze N-1 wyników jest błędnych, tworzą one stan nieustalony i powinniśmy je odrzucić)
+
+2. IIR (Infinite Impulse Response) - filtr o skończonej odpowiedzi impulsowej - jest układem rekursywnym. Reakcja na pobudzenie o skończonym czasie trwania może być nieskończenie długa - występuje pętla sprzężenia zwrotnego między wyjściem a wejściem. Pozwala na filtrację wybranych zakresów częstotliwości.
+
+![obrazek](images/2.5.3.PNG)
+
+<div style="text-align: center;"> w[n]=x[n]-a<sub>1</sub>w[n-1]-a<sub>2</sub>w[n-2] </div>
+<div style="text-align: center;"> y[n]=b<sub>0</sub>w[n]+b<sub>1</sub>w[n-1]+b<sub>2</sub>w[n-2] </div>
+
+Metoda projektowania filtru cyfrowego:
+- projektujemy filtr analogowy o zadanych parametrach
+- wykonujemy przekształcenie dwuliniowe (polegające na przekształceniu transmitancji w dziedzinie "analogowej" zmiennej s na transmitancję w dziedzinie "cyfrowej" zmiennej z)
+- otrzymujemy transmitancję filtru cyfrowego (współczynniki w liczniku i mianowniku H(z))
+![obrazek](images/2.5.3.PNG)
+
+N - rząd filtru. W filtrach IIR nie posługujemy się już pojęciem długości filtru
+Wynik filtracji zależy nie tylko od wartości próbek sygnału wejściowego, ale również od poprzednich wyników filtracji (jest to związane z mianownikiem transmitancji ≠ 1)
+
+Aby dokonać filtracji, filtr musi zapamiętać poprzednie próbki wejściowe i poprzednie wyniki filtracji - jest to pamięć albo stan filtru (filter memory/state). Stan dla filtru rzędu N musi zawierać N poprzednich próbek wejściowych oraz N poprzednich wyników filtracji. Stan filtru musi być aktualizowany po każdej przetworzonej próbce.
+Ze względu na pętlę sprzężenia zwrotnego, odpowiedź filtru IIR na pobudzenie impulsem może być nieskończona (stąd jego nazwa), ale nie oznacza to, że powinna taka być. Aby filtr mógł działać w praktyce, odpowiedź na skończone pobudzenie musi wygasnąć do zera w skończonym czasie - taki filtr nazywamy stabilnym. Jeżeli ten warunek nie jest spełniony, filtr jest niestabilny i nie nadaje się do użytku. Jeżeli impuls będzie krążył w nieskończoność w pętli z niezmienioną amplitudą, filtr jest na granicy stabilności - może mieć pewne zastosowanie, ale nie jako filtr (może np. generować sinusa).
+
+![obrazek](images/2.5.5.PNG)
+Zera i bieguny tworzą pary zespolone sprzężone. Filtr IIR jest stabilny, jeżeli dla wszystkich biegunów |p<sub>i</sub>|<1
+Jeżeli choć jeden biegun nie spełnia tego warunku, wzmocnienie w pętli sprzężenia zwrotnego staje się dodatnie i filtr jest niestabilny
+
+Projekt wymaga zadania parametrów, opisujących dopuszczalne odchyłki względem idealnego filtru:
+- Rp - maksymalne zafalowanie w paśmie przepustowym (maksymalna utrata wzmocnienia w tym paśmie). Najczęściej podawane w dB
+- (fp, fz) - szerokość pasma przejściowego, czyli częstotliwości graniczne pasma przepustowego i zaporowego. Alternatywnie (fp, N) - rząd filtru
+- Rz - minimalne tłumienie w paśmie zaporowym, względem pasma przepustowego. Najczęściej podawane w dB
+
+![obrazek](images/2.5.6.PNG)
+
+Typy filtrów:
+- eliptyczny - najczęściej stosowany. Skuteczne tłumienie, występują zafalowania w obu pasmach
+- czybyszewa - brak zafalowań w jednym z pasm, mniej skuteczne tłumienie
+- Butterwortha - całkowity brak zafalowań, mniej skuteczne tłumienie
+
+Filtry IIR zniekształcają fazę sygnału. Opóźnienie zależy od częstotliwości. Można dokonać filtracji sygnału filtrem IIR tak aby nie powstały zniekształcenia fazowe, ale pod warunkiem, że mamy cały sygnał do dyspozycji (przetwarzanie offline). Zniekształcenia fazowa nakładają się dwukrotnie, ale z przeciwnym znakiem, zatem kompensują się nawzajem. Jest to filtracja zerofazowa.
+
+Współczynniki filtru zapisujemy ze skończoną precyzją. Kwantyzacja - "dosunięcie" wartości liczby do najbliższej liczby możliwej do zapisania. Różnica wyników między projektowanym a zaprogramowanym filtrem tworzy szum kwantyzacji. Im większy rząd filtru, tym większy szum kwantuzacji (błąd dłużej "krąży" w filrze). Szum może zwiększyć moduł bieguna powyżej 1 - filtr staje się niestabilny, chociaż został zaprojektowany jako stabilny. Filtry niskich rzędów (<8) nie mają zwykle takiego problemu, więc warto je stosować. Dla wyższych rzędów warto stosować strukturę kaskadową (SOS).
+(Uwaga! - samo zjawisko kwantyzacji dotyczy zarówno FIR jak i IIR, jednak zdecydowanie bardziej może wpłynąć na wyniki IIR co opisano powyżej)
+
+Zalety IIR:
+- Pozwalają uzyskać żądany efekt niskim nakładem obliczeniowym (filtry niskiego rzędu)
+- nie wymagają dużo miejsca w pamięci
+- nie wprowadzają dużych opóźnień związanych z przetwarzaniem
+- są proste w implementacji
+- są cyfrowym odpowiednikiem filtrów analogowych. Można wykorzystać znane metody projektowania i analizy filtrów
+
+Wady IIR:
+- mają nieliniową charakterystykę fazową. Opóźnienie zależy od częstotliwości. Filtry wprowadzają zniekształcenia fazowe - różne składowe widma mają różne opóźnienia, faza się "rozjeżdża"
+- są podatne na błędy numeryczne związane z kwantyzacją współczynników. Mogą one spowodować utratę stabilności filtru. Problem można zmniejszyć stosując strukturę SOS
+- projektowanie jest trudniejsze niż dla FIR
 
 ## 6. Zasada działania i rodzaje sztucznych sieci neuronowych.
+1. Zasada działania
+Sztuczne sieci neuronowe (Artificial Neural Networks - ANN) składają się z tworzących sieć prostych elementów (zwanych sztucznymi neuronami) przetwarzających informacje. ANN rozwiązują skomplikowany, większy problem łącząc komponenty rozwiązanych zadań przez sztuczne neurony. Dla różnych problemów (problem ukryty jest tak naprawdę w dostarczanym zbiorze danych) podczas treningu sieci odnajdywane są zależności i aproksymowana jest funkcja, która jest odpowiedzią. Warto zaznaczyć, że ANN potrafią rozwiązywać problemy opisane funkcjami nieliniowymi, jak i również takie, których opisanie funkcją nie zawsze jest możliwe, co jest jedną z większych zalet ANN.
+
+![obrazek](images/2.6.1.PNG)
+
+Przechodząc do szczegółów - poniżej został przedstawiony model węzła. Węzeł jest funkcją, która na podstawie danych wejściowych pozwala uzyskać wartość wyjściową. Nieco jaśniej - do węzła docierają wartości liczbowe z węzłów należących do poprzedniej warstwy sieci, na podstawie których obliczana jest suma ważona i dodawana jest również wartość progowa. W konsekwencji argumentem wejściowym funkcji (która de facto opisuje neuron) jest liczba (x<sub>1</sub>*w<sub>1</sub> + x<sub>2</sub>*w<sub>2</sub> + ... + x<sub>n</sub>*w<sub>n</sub> + b). Następnie na podstawie zapisanej funkcji w węźle obliczana jest wartość funkcji dla podanego argumentu i otrzymujemy wynik y, który jest następnie przekazywany do neuronów znajdujących się w następnej warstwie lub jeśli omawiany neuron jest neuronem warstwy wyjściowej - otrzymujemy wynik problemu. Istnieje wiele różnych funkcji tzw. funkcji aktywacji neuronu, a ich wybów zależy od rozwiązywanego problemu - najczęściej stosowane funkcje nieliniowe to m.in. sigmoid, tanh, ReLu.
+
+![obrazek](images/2.6.2.PNG)
+
+Kluczowe dla poprawnego funkcjonowania ANN są: duży, odpowiednio dobrany zbiór danych treningowych i parametry sieci (zbiór parametrów to np. liczba warstw ukrytych, liczba węzłów w warstwach ukrytych, funkcja aktywacji, współczynnik nauki, itp. - jeden taki set parametrów nazywany jest architekturą). Cały proces treningu sieci jest po to, aby odszukać optymalne wartości wag (w<sub>n</sub>) połączeń neuronów i wartości progowych (b - bias), które spowodują, że w etapie pracy/testowania sieci (czyli po treningu) sztuczna sieć neuronowa będzie w jak największym możliwym stopniu dobrze rozwiązywała problem. Wyróżnia się następujące formy treningów:
+- Uczenie sztucznej sieci neuronowej z nadzorowaniem
+    Najpopularniejszy sposób treningu ANN. W tym rodzaju treningu uzyskany wynik w warstwie wyjściowej (czyli po przetworzeniu w sieci informacji wejściowej) jest porównywany z dostarczonym w zbiorze danych treningowych wynikiem poprawnym. Na podstawie różnicy wyniku otrzymanego na wyjściu sieci i poprawnego wyniku obliczany jest błąd. Błąd wykorzystywany jest do obliczania i aktualizacji wag połączeń między neuronami i wartości progowych. Innymi słowy musimy mieć zbiór danych wejściowych, dla których znany jest dokładny wynik / klasyfikacja badanego elementu. Powodujeto, że wynik sieci jest nadzorowany przez  prawidłową odpowiedź (nauczyciel), która pomaga w ocenie dokładności i poprawy pracy sieci na etapie treningu. Element zbioru uczącego/danych treningowych zawiera {danę wejściową, poprawną odpowiedź}. Przykładem może być algorytm optymalizujący wartości wag - backpropagation (algorytm wczesnej propagacji). Przez zadaną liczbę iteracji przez ANN przechodzi cały dostępny zbiór danych treningowych i na podstawie obliczonego błędu dla jednego wektora wejściowego lub po przeliczeniu odpowiedzi dla większego zbioru wektorów wejściowych (np. 32, 64, 128) obliczany jest błąd, a następnie gradient funkcji kosztu i na tej podstawie od pierwszej warstwy aktualizowane są wartości wag i wartości progowe.
+    ![obrazek](images/2.6.3.PNG)
+
+- uczenie sztucznej sieci neuronowej bez nadzoru
+    W tym rodzaju ANN uczy się na podstawie dostarczonych danych wejściowych, wyszukuje dobre (z jej punktu widzenia) zależności i dokonuje klasyfikacji podobnych odpowiedzi (takie grupowanie w klastry). Nie występuje tutaj element weryfikujący postępy treningu. Element zbioru uczącego/danych treningowych zawiera tylko {danę wejściową}.
+
+- uczenie sztucznej sieci neuronowej ze wzmocnieniem
+
+
 ## 7. Przedstaw zasadę pracy systemów echolokacyjnych i zdefiniuj ich podstawowe parametry eksploatacyjne.
 ## 8. Omów budowę, właściwości i zastosowania wielowiązkowych systemów echolokacyjnych.
 
