@@ -972,16 +972,295 @@ Znacznie częściej stosowane są pięciofazowe silniki hybrydowe. Takie rozwią
 Dla zwiększenia momentu konstruuje się silniki hybrydowe z wirnikami w postaci wirników elementarnych:
 ![obrazek](images/3.1.7.PNG)
 
+7. Nieobowiązkowo:
+Reluktancja - rezystancja magnetyczna / opór magnetyczny obwodu magnetycznego - opór stawiany strumieniowi magnetycznemu na drodze przepływu
+    Pojęcie reluktacji jest analogiczne do rezystancji w obwodach elektrycznych. Reluktancja jest skalarem. Całkowita reluktacja jest stosunkiem siły elektromotorycznej w pasywnym obwodzie magnetycznym do cąłkowitego strumienia magnetycznego w tym obwodzie. Jednostką reluktancji w układzie SI jest henr<sup>-1</sup>
 
-reluktacja, magnetycznie miękkie, bifilarne
+Materiały magnetycznie miękkie - umowna grupa materiałów wykazujących własności ferromagnetyczne. Pożądanymi parametrami materiału magnetycznie miękkiego są:
+- duża przenikalność magnetyczna, pozwalająca uzyskać duże wartości indukcji magnetycznej przy użyciu małego prądu magnesowania
+- jak najmniejsza stratność, pozwalająca na wysokosprawne przetwarzanie energii
+- duża indukcja nasycenia, pozwalająca na uzyskanie jak największej siły mechanicznej
+- duża rezystywność w celu zmniejszenia strat mocy powodowanych prądami wirowymi
+- odpowiednie własności mechaniczne (w zależności od zastosowania)
 
+Uzwojenie bifilarne - rodzaj uzwojenia nawiniętego jednocześnie dwoma przewodami, które są połączone szeregowo, ale przeciwsobnie, co powoduje znoszenie się indukcyjności obydwu części uzwojenia
 
 ## 2. Wymień i scharakteryzuj elementy urządzenia wykonawczego.
+W urządzeniu wykonawczym wyróżnia się zwykle 3 elementy:
+1. Element nastawczy (nastawnik)
+- jest ściśle związany z obiektem regulacji, steruje wielkością nastawiającą
+- bezpośrednio wpływa na określony strumień materiałowo-energetyczny, więc najczęściej jest to:
+    - zawór lub zasuwa w rurociągu doprowadzającym ciecz/gaz
+    - dozownik materiału (np. pyłu węglowego do paleniska w kotle)
+    - pompa o zmiennym wydatku
+    - dławik nasycany w obwodzie elektrycznym
+- nastawnik jest niekiedy integralną częścią regulacji
+- ponieważ wpływa na obiekt za pośrednictwem swojego położenia (zawór) lub prędkości ruchu (dozownik), łączy się go z odpowiednim elementem napędowym
+- umożliwiają oddziaływanie na przepływ materiału lub energii do/z obiektu w celu sterowania przebiegiem procesu technologicznego
+- dobór nastawnika: zapewnienie potrzebnego zakresu zmian wielkości nastawiającej Y
+![obrazek](images/3.2.1.PNG)
+
+- rodzaje elementów nastawczych:
+    - impedancyjne (zawór, zasuwa, rezystor, dławik nasycony w obwodzie elektrycznym)
+    - generacyjne (np. pompa o zmiennym wydatku)
+
+- najczęściej stosowanym nastawnikiem jest zawór o konstrukcji zależnej od rodzaju obiektu regulacji. Najczęściej stosowane rodzaje:
+    - jednogniazdowe i dwugniazdowe
+    - zwykłe i wysokociśnieniowe
+    - proste lub kątowe
+    - trójdrogowe mieszające i rozdzielające
+
+2. Element napędowy (siłownik)
+- zapewnia uzyskanie siły niezbędnej do przestawienia nastawnika
+- najczęściej są to silniki:
+    - pneumatyczne (duża szybkość, duża moc)
+        - sterowane powietrzem z regulatora pneumatycznego
+        - zalety:
+            - prosta budowa (i obsługa) oraz niższa cena niż w przypadku siłowników elektrycznych
+            - bezpieczne. Stosowane zwłaszcza w przemyśle chemicznym, szczególnie w przypadku pracy w warunkach zagrożenia wybuchem
+            - dodatkowe atuty: duża szybkość przestawiania, łatwo dostępna funkcja automatycznego otwarcia/zamknięcia (przy zaniku zasilania)
+        - służą głównie do sterowania elementami nastawczymi z trzpienie obrotowym o kącie obrotu 0-90/180 stopni (przepustnic, zaworów kulowych, itp.) oraz o ruchu liniowym, ale istnieją także wersje 3-położeniowe (np. 0-90-180 stopni) i wieloobrotowe
+        - w większości przypadków siłowniki pneumatyczne są stosowane do pracy tupu zamknij-otwórz
+        - istnieją dwie podstawowe grupy siłowników:
+            - siłowniki dwustronnego działania: zamknięcie i otwarcie jest osiągan przy pomocy medium sterującego
+            - siłowniki jednostronnego działania: medium sterujące operuje tylko w jedną stronę, po jego zaniku siłownik samoczynnie (przy pomocy umieszczonych w nim sprężyn) wraca do zadanego położenia
+        - rodzaje siłowników pneumatycznych:
+            - membranowe
+            - tłokowe
+            - silniki wirowe
+    - hydrauliczne (mała szybkość, bardzo duża moc)
+        - współpracują z regulatorami o wyjściu hydraulicznym
+        - tarcie powoduje, że powstaje strefa martwa
+        - własności całkujące, ale możliwe jest osiągnięcie proporcjonalności po zastosowaniu sprzężenia zwrotnego od położenia tłoczyska, zmniejszeniu ulega też wtedy strefa martwa
+        - wykonywane przeważnie jako silniki tłokowe dwustronnego działania
+    - elektryczne (prądu stałego, zmiennego, liniowe i krokowe)
+
+3. Wzmacniacz mocy
+- stosowany, gdy moc wyjściowa regulatora jest za mała na to, aby bezpośrednio zasilać siłownik lub nim sterować
+- są różne dla różnych typów elementów napędowych
+- pneumatyczne WM często wbudowane są element napędowy (siłownik z ustawnikiem), czasami jednak występują jako element oddzielny
+- hydrauliczne WM stosowane są przede wszystkim w siłownikach elektrohydraulicznych i przeważnie stanowią ich część
+- WM potrzebne są zwłaszcza przy regulatorach o wyjściu elektrycznym. Wtedy często ich zadaniem jest konwersja sygnału sterującego do postaci odpowiedniej dla zastosowanego elementu napędowego, np.:
+    - sterowanie z PWM silników elektrycznym prądu stałego
+    - sterowanie przy pomocy falownika pracą silnika prądu zmiennego, przy zasilaniu ze źródła napięcia stałego
+    - napęd dyskretny przy wykorzystaniu silnika skokowego
+
+4. UWAGI
+- z trzech wymienionych elementów urządzenia wykonawczego zawsze konieczny jest nastawnik
+- element napędowy nie jest potrzebny przy elementach nastawczych nieruchomych (np. przy dławiku nasyconym)
+- potrzeba użycia wzmacniacza mocy zależy od mocy wyjściowej regulatora
+- możliwe są zestawienia uproszczone:
+    - element nastawczy - wzmacniacz mocy (np. w serwomechanizmach)
+    - element nastawczy - element napędowy
+    - tylko element nastawczy
+
 ## 3. Opisz cechy szczególne wyróżniające procesory sygnałowe.
+Cyfrowy procesor sygnałowy (ang. DSP) - układ elektroniczny wyspecjalizowany w cyfrowym przetwarzaniu sygnałów, zwykle wykonywanym "w czasie rzeczywistym", w odróżnieniu od procesorów ogólnego przeznaczenia (CPU)
+
+Dlaczego procesor sygnałowy a nie ogólnego przeznaczenia?
+- architektura i lista rozkazów wyspecjalizowana jest do przetwarzania próbek cyfrowego sygnału
+- zwykle niskie częstotliwości taktowania, zwłaszcza w procesorach stałoprzecinkowych
+- małe zużycie energii w porównaniu do mikroprocesora
+- małe rozmiary - możliwość zastosowania w systemach wbudowanych
+- stosunek czasu przetwarzania do "kosztów" (zużycia zasobów) znacznie lepszy niż dla mikroprocesora
+
+Kiedy zastosujemy procesor sygnałowy:
+- do złożonego przetwarzania sygnału w czasie rzeczywistym
+- jako element urządzenia (np. aparatu fotograficznego)
+- przy konieczności niskiego zużycia energii (np. zasilanie z baterii)
+- gdy przetwarzanie składa się z typowych operacji przetwarzania sygnału (filtry, FFT, itp.)
+
+Procesory sygnałowe stosujemy zazwyczaj do przetwarzania sygnałów "na żywo" ("w trybie online"):
+- sygnał jest nieskończony - nowe próbki cały czas napływają
+- każda próbka musi zostać przetworzona zanim nadejdzie kolejna (przetwarzanie w czasie rzeczywistym, próbka po próbce)
+- ewentualnie, próbki mogą być przetwarzanie po zebraniu ich wymaganej liczby (np. przetwarzanie blokowe podczas obliczania FFT)
+
+Algorytmy uruchamiane na DSP wykorzystują podstawowe procedury przetwarzania sygnału:
+- mnożenie, dodawanie, operacje logiczne (również wykonywane wektorowo)
+- przekształcenia Fouriera (FFT) i kosinusowe (DCT)
+- splot / filtracja FIR
+- korelacja, autokorelacja
+- filtracja IIR
+- mnożenie macierzy
+Procesor sygnałowy jest zoptymalizowany do wykonywania tych operacji. Na ich podstawie budowane są złożone algorytmy, np. kompresji sygnału
+
 ## 4. Opisz typy systemów czasu rzeczywistego.
+Systemy czasu rzeczywistego (ang. Real-Time Systems) to systemy komputerowe, które muszą reagować na zdarzenia lub dane w ściśle określonych ramach czasowych. W takich systemach ważna jest nie tylko poprawność obliczeń, ale także ich wykonanie w odpowiednim czasie. Istnieją różne typy systemów RT, klasyfikowane na podstawie rygoru czasowego:
+
+1. Twarde systemy czasu rzeczywistego (Hard Real-Time Systems)
+- są to systemy, w których niedotrzymanie ograniczenia czasowego prowadzi do katastrofalnych konsekwencji, takich jak awaria sprzętu, zagrożenie życia, czy poważne straty finansowe
+- przykłady zastosowań:
+    - systemy sterowania lotem w samolotach
+    - systemy kontroli reaktorów jądrowych
+    - systemy medyczne, np. monitorowanie urządzeń podtrzymujących życie
+- charakterystyka:
+    - wszystkie zadania muszą zostać zakończone zawsze w określonym czasie
+    - priorytet czasowy jest absolutny
+    - wysoka niezawodność i deterministyczność
+
+2. Miękkie systemy czasu rzeczywistego (Soft Real-Time Systems)
+- są to systemy, w których przekroczenie ograniczeń czasowych nie prowadzi do katastrofy, ale może skutkować obniżeniem jakości usługi
+- przykłady zastosowań:
+    - systemy do przesyłania multimediów (streaming video, VoIP)
+    - gry komputerowe w czasie rzeczywistym
+    - obsługa transakcji bakomatowych
+- charakterystyka:
+    - wykonanie zadania w określonym czasie jest pożądana, ale niekoniecznie
+    - przekroczenie czasu może spowodować np. opóźnienia, ale system wciąż działa
+    - priorytet czasowy jest elastyczny
+
+3. Twardo-miękkie systemy czasu rzeczywistego (Firm Real-Time Systems)
+- są to systemy, które są pośrednie między twardymi a miękkimi systemami RT. Przekroczenie ograniczeń czasowych nie prowadzi do katastrofy, ale wynik opóźnionego zadania staje się bez wartości
+- przykłady zastosowań:
+    - systemy radarowe (jeśli przetwarzanie danych trwa zbyt długo, stracone dane są ignorowane)
+    - systemy obsługi zamówień w czasie rzeczywistym
+- charakterystyka:
+    - zadania muszą być wykonane w odpowiednim czasie, w przeciwnym razie ich rezultat jest pomijany
+    - brak "kar" za pojedyncze niedotrzymanie czasu, ale częste opóźnienia mogą prowadzić do problemów
+
+4. To już chyba nad wyrost (z chata) - Systemy hybrydowe
+- systemy, które łączą cechy różnych typów systemów RT. Mogą zawierać zadania o różnych poziomach krytyczności, zarówno twardych jak i miękkich
+- przykłady zastosowań:
+    - systemy autonomicznych pojazdów (zadania krytyczne, np. sterowanie hamulcami są twarde, a zadania mniej ważne jak odtwarzanie multimediów są miękkie)
+    - systemy kosmiczne (sterowanie lotem i zbieranie danych naukowych)
+- charakterystyka:
+    - zadania są klasyfikowane według ich krytyczności i odpowiednio przydzielane zasoby
+
+5. To już chyba nad wyrost (z chata) - systemy wbudowane RT
+- systemy, które są integralną częścią urządzeń i są zaprojektowane, aby działać w specyficznych zastosowaniach RT
+- charakterystyka:
+    - dopasowanie do konkretnych urządzeń
+    - zoptymalizowane pod kątem niskiego zużycia zasobów
+
 ## 5. Wyjaśnij pojęcie systemu wbudowanego (ang. embedded system).
+Jest to wyspecjalizowany system komputerowy zaprojektowany do wykonywania określonego zadania lub zestawu zadań w ramach większego urządzenia. Jest to zintegrowane rozwiązanie, które łączy oprogramowanie i sprzęt w celu zapewnienia konkretnej funkcji.
+
+Charakterystyka
+- zadania wyspecjalizowane - systemy wbudowane są projektowane do wykonania ściśle określonych funkcji, np. sterowania pralką, działaniem poduszek powietrznych, czy zarządzania transmisją w urządzeniach sieciowych
+- ograniczone zasoby - systemy te często działają na sprzęcie o ograniczonej mocy obliczneniowej, pamięci i energii
+- zintegrowane z urządzeniem - system wbudowany jest fizycznie i logicznie częścią większego systemu, np. telewizora, lodówki, samochodu, drona, itp.
+- czas rzeczywisty - często muszą działać w czasie rzeczywistym, co oznacza, że reakcje systemu muszą nastąpić w ściśle określonym czasie
+- systemy zamknięte lub częściowo otwarte - w większości przypadków systemy wbudwane są "zamknięte", co oznacza, że użytkownicy końcowi nie mogą ich bezpośrednio modyfikować lub instalować własnego oprogramowania
+- efektywność energetyczna - ze względu na częste zastosowanie w urządzeniach zasilanych bateryjnie (np. urządzenia IoT), systemy te są optymalizowane pod kątem niskiego zużycia energii
+- wykonuje skończoną liczbę zadań, w skończonym czasie, w większym systemie (który zwykle nie jest komputerem)
+- dobrze zaprojektowany system zapewnia jednocześnie wymagane opóźnienia i przepustowość, minimalizując jednocześnie: zasoby sprzętowe, złożoność oprogramowania, rozmiar i pobór mocy
+
+Istnieją 3 kategorie w zależności od potrzeb energetycznych:
+- zasilane baterią (np. przenośne urządzenia audio) - maksymalizacja długości życia baterii, minimalizacja rozmiaru
+- stałej mocy (np. aparaty telefoniczne) - maksymalizacja wydajności przy stałej, ograniczonej mocy
+- systemy high-density (np. systemy wysokiej wydajności obliczeniowej i systemy wieloprocesorowe) - maksymalizacja wydajności energetycznej (ciepło)
+
+Podstawowa architektura systemu wbudowanego:
+- sensor - mierzy wielkość fizyczną i konwertuje ją na sygnał elektryczny. Zapisuje zmierzoną wartość w pamięci
+- konwerter C/A - zamienia sygnał analogowy na sygnał cyfrowy
+- jednostka obliczeniowa - przetwarza dane i zapisuje je do pamięci. Może nią być:
+    - mikrokontroler
+    - mikroprocesor
+    - procesor CISC/RISC
+    - procesor DSP
+    - System on a Chip (SoC)
+    - układy konfigurowalne
+- konwerter C/A - zamienia sygnał cyfrowy na sygnał analogowy
+- element wykonawczy - urządzenie mechaniczne występujące w układach regulacji, które na podstawie sygnału sterującego wypracowuje sygnał wejściowy do obiektu regulacji. Porównuje wyjście z konwertera C/A z wartością oczekiwaną
+
+HPEC (ang. High Performance Embedded Computing)
+- wysoki poziom funkcjonalności systemów przetwarzania sygnałów i obrazów
+- systemy do zastosowań militarnych
+
 ## 6. Narażenia zagrażające aparaturze z komputerami wbudowanymi - rodzaje, główne źródła, sposoby przeciwdziałania.
 ## 7. Zasady rozprowadzania zasilania obwodów w aparaturze z komputerami wbudowanymi - odsprzęganie, filtracja zakłóceń.
 ## 8. Automatyczne regulacje w układach z otoczenia komputerów wbudowanych - rodzaje, cele stosowania, sposoby realizacji.
 ## 9. Funkcje elementów systemu operacyjnego Linux dla systemu wbudowanego: toolchain, bootloader, jądro, system plików.
+1. Toolchain - zestaw narzędzi do kompilacji kodu źródłowego do plików wykonywalnych na platofrmie docelowej:
+- kompilator
+- linker
+- biblioteki współdzielone
+
+Za pomocą narzędzi toolchain można zbudować podstawowe elementy OS dla systemu wbudowaneg:
+- program rozruchowy (bootloader)
+- jądro systemu (kernel)
+- system plików (root filesystem)
+
+Elementy toolchain:
+- Binutils - narzędzia binarne: asembler, linker, Id
+- GCC - kompilatory C i innych języków jak: C++, Objective-C, Objective-C++, Java, Fortran, Ada i Go
+- Biblioteka C - ustandaryzowane API zgodne ze specyfikacją POSIX
+
+2. Bootloader - inicjalizuje platformę sprzętową oraz ładuje jądro systemu
+Jest to program rozruchowy, który inicjalizuje system i ładuje jądro OS do pamięci. Uruchamianie sysytemu polega na przejściu kilku faz, w których coraz więcej zasobów jest dostępnych dla programu rozruchowego.
+
+Ostateczny rezultat pracy bootloadera to:
+- jądro systemu operacynjego załadowane do pamięci RAM
+- uruchomione środowisko wykonawcze dla jądra (linia poleceń jądra systemu)
+- jądro systemu dostaje wskaźnik do informacji o platformie sprzętowej
+
+Dodatkowo bootloader dostarcza trybu serwisowego do:
+- aktualizacji konfiguracji procesu boot-owania
+- ładowania nowych obrazów programów rozruchowych do pamięci
+- diagnostyki
+
+Kiedy jądro OS rozpoczyna wykonywanie swojego programu, bootloader nie jest już dłużej potrzebny
+
+Sekwencja rozruchowa - współcześnie:
+- Faza 1 - kod ROM. Uruchamiany po włączeniu zasilania, jest zapisany w SoC podczas produkcji, potrafi zaadresować małą przestrzeń pamięci SRAM dostępnej w SoC, ładuje SPL.
+    Kod ROM ładuje niewielki program rozruchowy do SRAM z:
+    - pierwszych stron pamięci NAND flash
+    - pamięci flash dołączonej przez SPI
+    - pierwszych sektorów urządzenia MMC (karty SD)
+    - strumienia bajtów z interfejsu Ethernet, USB lub UART
+- Faza 2 - Secondary program loader (SPL). Uruchamia m.in. kontroler pamięci by móc załadować kolejną część programu rozruchowego do pamięci DRAM, czyta program z urządzeń jak kod ROM lub z pliku, zwykle nie pozwala na żadną interakcję z użytkownikiem ale drukuje w konsoli informację o wersji i postępie
+- Faza 3 - Teritary program loader (TPL). Pełny program rozruchowy, prosta linia poleceń użytkownika (polecenia typu załaduj nowy obraz jądra do pamięci), efektem jego działania jest jądro OS w pamięci. W systemach wbudowanych programy rozruchowe są usuwane z pamięci po uruchomienia jądra OS
+- Faza 4 - jądro OS w pamięci
+
+Sekwencja rozruchowa - rozruch z programem układowym UEFI:
+- Faza 1 - procesor ładuje UEFI boot manager firmware z pamięci flash. Możliwa jest interakcja z użytkownikiem przez interfejst tekstowy lub graficzy
+- Faza 2 - Boot manager ładuje boot firmware z EFI System Partition lub z dysku twardego/SSD
+- Faza 3 - Bootloader ładuje jądro OS do pamięci
+
+3. Kernel - jądro - serce systemu, zarządza zasobami i komunikuje się ze sprzętem
+Jądro jest częścią systemu operacyjnego odpowiedzialną za zarządzanie zasobami i komunikację ze sprzętem. 
+
+Główne zadania jądra:
+- zarządzanie sprzętem - obsługuje urządzenia peryferyjne (np. porty szeregowe, czujniki, kamery) za pomocą sterowników
+- zarządzanie procesami - tworzy, planuje i monitoruje procesy uruchamiane w systemie. Przydziela zasoby takie jak pamięć czy czas procesora
+- zarządzanie pamięcią - rozdziela pamięć RAM pomiędzy różne procesy, obsługuje wirtualną pamięć, co pozwala na optymalne wykorzystanie zasobów
+- obsługa systemów plików - umożliwia odczyt i zapis danych na różnych typach systemów plików
+- komunikacja między procesami IPC - zapewnia mechanizmy wymiany danych między aplikacjami, np. komunikaty, pulsy, sygnały
+- zarządzanie i obsługa przerwań
+- zarządzanie czasem rzeczywistym
+- dostarczanie API z użytecznym poziomem abstrakcji dla programów w przestrzneni użytkownika
+
+4. Root filesystem - biblioteki i programy uruchamiane w systemie
+System plików to struktura logiczna, która organizuje sposób przechowywania i dostępu do danych na urządzeniach pamieci masowej
+
+Funkcje:
+- przechowywanie plików systemowych i użytkownika - zawiera pliki systemowe (np. binaria jądra, sterowniki) i aplikacje użytkownika
+- organizacja danych - dane są przechowywane w logicznej strukturze hierarchicznej (katalogi, podkatalogi)
+- wsparcie dla różnych typów pamięci - systemy wbudowane często używają specyficznych systemów plików zoptymalizowanych dla pamięci flash
+- udostępnianie narzędzi systemowych - system plików zawiera narzędzia użytkowe, takie jak interpretery powłok oraz biblioteki dynamiczne
+- kompresja i minimalizacja - systemy plików w systemach wbudowanych są często kompresowane aby zmniejszyć ich rozmiar i zaoszczędzić miejsce w pamięci
+
+Po zamontowaniu głównego systemu plikój jądro uruchamia pierwszy program: init
+Program init rozpoczyna przetwarzanie skryptów i uruchamia inne programy poprzez wyowłania fukcji biblioteki, które z kolei dokonują wywołań systemowych
+
+Główny system plików - minimum:
+- init - uruchamia pierwsze skrypty i programy
+- powłoka (shell) - środowisko do wykonywania skryptów oraz linia poleceń użytkownika
+- demony - programy uruchamiane w tle
+- biblioteki - statyczne i współdzielone
+- pliki konfiguracyjne - jako pliki tekstowe ASCII
+- węzły urządzeń - pliki specjalne umożliwiające dostęp do sterowników i urządzeń
+- /proc i /sys - wirtualne systemy plików reprezentujące dane jądra OS
+
+Organizacja katalogów - OS nie wymaga specjalnej organizacji plików i katalogów (poza nazwą programu init= i rdinit=). Takiej specjalnej organizacji mogą jednak oczekiwać uruchamiane programy.
+- /bin - podstawowe pliki wykonywalne dostępne dla wszystkich użytkowników (np. cat, ls, cp)
+- /dev - pliki urządzeń
+- /etc - pliki konfiguracji OS
+- /lib - biblioteki dla programów z katalogów /bin i /sbin
+- /proc - wirtualny system plików proc informujący o stanie systemu i poszczególnych procesów, w większości pliki tekstowe.
+- /sbin - pliki wykonywalne do zarządzania systemem
+- /sys - wirtualny system plików sysfs
+- /tmp - pliki tymczasowe, których stan nie jest gwarantowany po zamknięciu systemu
+- /usr - tzw. drugorzędna hierarchia dla danych. Dane tylko do odczytu
+- /var - pliki często ulegające zmianom podczas działania OS, takie jak: logi, bazy danych, tymczasowe pliki e-mail
 ## 10. Opisz metory pomiarowe stosowane w radarze meteorologicznym.
