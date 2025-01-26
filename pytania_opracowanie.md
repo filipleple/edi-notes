@@ -873,6 +873,109 @@ Zadaniem bloku detekcji jest odpowiednie zinterpretowanie otrzymanego obrazu (np
 
 # **Pytania dla Systemów Wbudowanych Czasu Rzeczywistego**
 ## 1. Wymień 3 główne typy silników krokowych i scharakteryzuj jeden z nich.
+- Silnik skokowy (krokowy) - urządzenie elektromechaniczne (synchroniczny silnik elektryczny), zamieniający impulsu elektryczne na dyskretny ruch mechaniczny
+- Oś silnika obraca się w sposób dyskretny - skokami, w takt impulsów elektrycznych przyłożonych do jego uzwojeń według ściśle odpowiedniej sekwencji:
+    - kierunek obrotu zależy od kolejności ich pojawienia się
+    - prędkość obrotowa jest wprost proporcjonalna do ich częstotliwości
+    - całkowity kąt obrotu jest bezpośrednio związany z ich liczbą
+- Znajdują zastosowanie w układach, gdzie wymagana jest regulacja prędkości obrotowej i położenia kątowego, bez potrzeby stosowania sprzężenia zwrotnego
+- Praca w pętli otwartej oznacza, że nie jest potrzebna informacja zwrotna. Ten typ sterowania eliminuje potrzebę stosowania drogich czujników oraz licznych elementów układu sprzężenia zwrotnego. Położenie wirnika jest znane, gdyż może być łatwo znana liczba wysłanych impulsów sterujących
+- w przypadku liniowych silników krokowych mamy do czynienia z dyskretnymi przesunięciami liniowymi
+
+Zalety silników krokowych:
+- kąt obrotu wału silnika jest wprost proporcjonalny do liczby impulsów
+- silnik ma pełen moment w położeniu stacjonarnym wirnika, (jeśli przez jego uzwojenia płynie prąd - są w stanie wzbudzenia)
+- precyzyjne pozycjonowanie i powtarzalność położenia, gdyż dobry silnik krokowy ma dokładność 3-5 % wartości
+- doskonała odpowiedź na start-stop-rewersja
+- wysoka niezawodność - nie ma części trących (szczotek). Trwałość silnika zależy jedynie od trwałości jego łożysk
+- możliwość pracy w pętli otwartej, co czyni sterowanie jego pracą prostszym i tańszym
+- umożliwia osiągnięcie bardzo małych, synchronicznych prędkości obrotowych bez przekładni
+- duży zakres prędkości obrotowych
+
+Wady:
+- prędkość obrotowa i przyspieszenia nie mogą być tak duże jak w silnikach prądu stałego pracujących w układach ze sprzężeniem zwrotnym
+    - szkodliwe rezonanse w pewnych zakresach prędkości obrotowej
+    - oscylacje powstające przy końcu skoku
+
+1. Najbardziej ogólny podział silników krokowych - ze względu na rodzaj ruchu:
+- obrotowe
+- liniowe
+
+2. Podstawowe rodzaje obrotowych silników krokowych:
+- silniki o zmiennej reluktancji (oporze magnetycznym)
+- silniki z megnesem trwałym
+- silniki hybrydowe
+
+4. Silnik krokowy o zmiennej reluktacji - VR
+- ten typ silnika jest znany najdłużej
+- posiada wielozębny wirnik, wykonany ze stali magnetycznie miękkiej oraz stojan, na którym nawinięte są uzwojenia
+- wzbudzenie uzwojeń prądem stałym powoduje powstanie biegunów magnetycznych. Obrót nastąpi, gdyż najbliższe zęby wirnika przemieszczą się do powstałych biegunów - silnik dąży do minimalizowania reluktancji
+
+Zasada działania silnika skokowego VR o trzech fazach (3 fazy, 6 zębów stojana, 4 zęby wirnika):
+![obrazek](images/3.1.1.PNG)
+
+- dla silnika VR liczba skoków na jeden obrót S powiązana jest z liczbą "zębów" wirnika N<sub>r</sub> i liczbą faz m:
+<div style="text-align: center;"> S = mN<sub>r</sub> </div>
+
+- typowa liczba faz dla silnika ze zmienną reluktancją: 3, 4 i 5
+- uzwojenia jednej fazy nawinięte na przeciwległych zębach i połączone szergowo (ewentualnie równolegle), ale ze zmianą kierunku nawinięcia
+
+5. Silnik krokowy z magnesem trwałym - PM
+- wirnik tego silnika ma rozłożone promieniście bieguny z magnesów trwałych - ich liczba zależy od modelu silnika
+- trwale namagnesowane bieguny wirnika powodują zwiększenie natężenia strumienia magnetycznego i z tego powodu silniki te charakteryzują się większym momentem niż silniki VR
+![obrazek](images/3.1.2.PNG)
+
+- bifilarne uzwojenia jednej fazy nawinięte są na przeciwległych zębach i połączone szeregowo (rys), a ich środek wyprowadzony jest na zewnątrz
+- aranżacja uzwojeń umożliwia sterowanie uniwersalne - biegunowość pola magnetycznego danej fazy zmienić można albo poprzez zmianę kierunku prądu w całym uzwojeniu (wyprowadzenia PhA i PhĀ), albo załączając tylko jedną połówkę (C<sub>a</sub>PhA lub C<sub>a</sub>PhĀ) bez zmiany kierunku prądu (rys)
+- 2 fazy, 4 zęby (bieguny) stojana, 2 bieguny wirnika
+- dla silnika PM liczba pełnych kroków na jeden obrót S powiązana jest z liczbą "par zębów" wirnika N<sub>r</sub> i liczbą faz m:
+<div style="text-align: center;"> S = 2mN<sub>r</sub> </div>
+
+- w przykładzie: N<sub>r</sub>=1 i m=2, czyli S=4 i kąt skoku wynosi 90 stopni
+- typowa liczba faz dla silnika PM: 2, 4 i 5
+
+6. Silnik krokowy hybrydowy - HB
+- ten typ silnika jest droższy niż silnik PM, lecz posiada lepsze parametry: większa liczba kroków na obrót, większy moment i prędkość obrotowa
+- łączy w sobie właściwości obu poprzednich typów (VR, PM), dla osiągnięcia małego kąta skoku, dużej prędkości obrotowej i dużego momentu przy małych gabarytach
+- stojan podobny jak w silniku VR
+- wirnik zbudowany jest z osiowo namagnesowanego magnesu trwałego, na którego końcach osadzone są uzębione, magnetycznie miękkie nabiegunniki ze stali, przesunięte (obrócone) względem siebie o 1/2 zęba
+![obrazek](images/3.1.3.PNG)
+
+Naczęściej stosowane są dwufazowe silniki hybrydowe. Przykład:
+![obrazek](images/3.1.4.PNG)
+
+- stojan o 4 biegunach, wytwarzanych przez uzwojenie fazowe: A (bieguny 1 i 3) oraz B (bieguny 2 i 4)
+- wirnik o 15 nabiegunnikach (drugich 15 jest przesuniętych o pół zęba)
+- dla silnika hybrydowego:
+<div styl="text-align: center;"> S = 2mN<sub>r</sub>
+
+- w przykładzie m=2, N<sub>r</sub>=15 i S = 60 (kąt skoku wynosi 6 stopni)
+
+
+Działanie przykładowego silnika prześledzić można na schemacie:
+![obrazek](images/3.1.5.PNG)
+
+- (1) załączony prąd fazy A - zęby N (S) wirnika zgodne z zębami bieguna 1 (3) stojana, oznakowany ząb wirnika przy środkowym zębie bieguna 1 stojana
+- (2) załączony prąd fazy B - zęby S (N) wirnika zgodne z zębami bieguna 2 (4) stojana po przemieszczeniu kątowym o 1/4 zęba
+- (3) załączony prąd fazy A, ale w kierunku przeciwym - zęby S (N) wirnika zgodne z zębami bieguna 1 (3) stojana po skoku o 1/4 zęba
+- (4) załączony prąd fazy B, ale w kirunku przeciwnym - zęby N (S) wirnika zgodne z zębami bieguna 2 (4) stojana po skoku o 1/4 zęba
+
+Wśród dwufazowych silników hybrydowych najbardziej rozpowszechniona jest konstrukcja z 8 biegunami stojana (każdy z nich ma 5 zębów) i 50 zębami wirnika. Przy m=2 (po 2 pary biegunów stojana na fazę) i N<sub>r</sub>=50 znamionowy kąt skoku wynosi 1,8 stopnia (S=200)
+
+Na bazie konstrukcji 200-skokowej dwufazowej można zbudować silnik 4-razowy (dzieląc 8 biegunów stojana pomiędzy 4 fazy) o S=400, ale takie rozwiązanie stosowane jest rzadko ze względu na duży koszt sterownika.
+
+Trójfazowe silniki hybrydowe są mało popularne.
+Znacznie częściej stosowane są pięciofazowe silniki hybrydowe. Takie rozwiązanie jest też droższe niż dwufazowe, lecz ma znacznie lepsze własności dynamiczne. Łatwo też uzyskać tu duże "okrągłe" wartości S. Najczęściej stosuje się N<sub>r</sub>=50 lub 100 - otrzymujemy wtedy S=500 lub 1000.
+
+![obrazek](images/3.1.6.PNG)
+
+Dla zwiększenia momentu konstruuje się silniki hybrydowe z wirnikami w postaci wirników elementarnych:
+![obrazek](images/3.1.7.PNG)
+
+
+reluktacja, magnetycznie miękkie, bifilarne
+
+
 ## 2. Wymień i scharakteryzuj elementy urządzenia wykonawczego.
 ## 3. Opisz cechy szczególne wyróżniające procesory sygnałowe.
 ## 4. Opisz typy systemów czasu rzeczywistego.
