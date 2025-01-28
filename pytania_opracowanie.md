@@ -1196,7 +1196,70 @@ HPEC (ang. High Performance Embedded Computing)
 - systemy do zastosowań militarnych
 
 ## 6. Narażenia zagrażające aparaturze z komputerami wbudowanymi - rodzaje, główne źródła, sposoby przeciwdziałania.
+
+1. Narażenia dla obudów:
+- mechaniczne statyczne: rozciąganie, ściskanie, zginanie, skręcanie, wyboczenie, pełzanie
+- mechaniczne dynamiczne: uderzenia, udary, wstrząsy, wibracje, rezonanse
+- klimatyczne - temperatura otoczenia, przewodzenie, promieniowanie, przenikanie, unoszenie, przejmowanie, wilgotność, atmosfera korozyjna, ciśnienie, ruchy ośrodka, woda w otoczeniu
+- radiacyjne: promieniowanie słoneczne, jonizujące, korpuskularne
+- biotyczne: mikroorganizmy, owady, gryzonie
+
+2. Narażenia dla sprzętu:
+- zakłócenia
+
+
+        #DO DOKOŃCZENIA
+
 ## 7. Zasady rozprowadzania zasilania obwodów w aparaturze z komputerami wbudowanymi - odsprzęganie, filtracja zakłóceń.
+1. Źródła zakłóceń i sposoby walki z nimi:
+- Elektromagnetyczne z "eteru" - wyemitowane zakłócenia z sieci energetycznych wysokonapięciowych a także sieci "skażonych" niedostatecznie odkłóconymi odbiornikami energii (np. silniki, tyrystorowa automatyka i regulacja mocy). "Obce nadajniki"
+    - Zapobieganie: ekrany elektromagnetyczne, wczesne obwody filtrujące do niezbędnego pasma. Rozstawienie jednocześnie pracujących nadajników i odbiorników radiostacji, a nawet simplex
+
+- z sieci energetycznej - pochodzące z zasilającej sieci energetycznej "skażonej" niedostatecznie odkłóconymi odbionikami (np. silniki, tyrystorowa automatyka i regulacja mocy, efekty świetlne estradowe)
+    - Zapobieganie: obwody odkłócające (filtry dolnopasmowe) przed wejściami zasilaczy lokalnych
+
+- z niedoskonałości lokalnych zasilaczy i obwodów rozprowadzających zasilanie - niedoskonałości lokalnych, a nawet centralnych zasilaczy i obwodów rozprowadzających zasilanie polega na niezerowej impedancji w punktach pobierania zasilania przez poszczególne, indywidualne układy. Formalnie oznacza to, że w tych punktach istnieją niedoskonałe źródła stałonapięciowe, które powinny mieć zerową impedancję wewnętrzną (stanowić zwarcie) dla przebiegów zmiennych – różnego autoramentu zakłóceń. W efekcie braku idealnych zwarć między tymi punktami a masą istnieją warunki do występowania przebiegów zakłócających:
+    - z samych zasilaczy, zwłaszcza impulsowych
+    - zaindukowanych na przewodach rozprowadzających zasilanie i masę
+    - wytwarzanych w samych zasilanych, indywidualnych układach
+
+    - Zapobieganie:
+        - stosowanie zasilaczy liniowych (nie impulsowych)
+        - nadmiarowe przekroje przewodów (czy szyn) rozprowadzających zasilanie i ścieżek na PCB
+        - lokalne odsprzężenia zasilania
+
+- przenoszone z układów cyfrowych do współpracujących układów analogowych - wiele systemów i urządzeń zawiera w sobie część układów analogowych podatnych na zakłócenia generowane przez współpracujące układy cyfrowe. Prócz standardowych metod odkłócania niezbędne może się okazać postępowanie radykalne - galwaniczne rozdzielenie układów analogowych i cyfrowych, wraz z rozdzieleniem mas. Można to zrobić na dwa sposoby:
+    - przez zastosowanie transformatorów sygnałów analogowych, za którymi umieszcza się przetworniki A/C i dalej stosowane przetwarzanie cyfrowe
+    - przetwarzanie analogowe kończy się przetwornikami A/C (z odprzężonym zasilaniem) i za nimi umieszcza się cyfrowe optoizolatory
+
+2. Odsprzęganie zasilania
+Lokalne odsprzęganie zasilania - idea odsprzężeń lokalnych polega na utworzeniu indywidualnych oczek, z których pobierane jest zasilanie wydzielonych układów lub grup układów i do których są generowane ewentualne zakłócenia z tychże wydzielonych układów, z utrudnionym "wyjściem" poza oczko.
+
+    Traktując tę ideę formalnie można stwierdzić, że odsprzęgane układy pracują jako obciążenia tzw. czwórników typu π1 - bardzo popularnych filtrów dopasowujących w rezonansie praktycznie dowolne impedancje wyjściowe układów poprzedzających do, również praktycznie dowolnych, impedancji wejściowych obciążeń z możliwością doboru dobroci, oczywiście w granicach nieprzekraczających fizycznej dobroci elementów. Bardzo ważne jest też, że powyżej rezonansu czwórniki te mają charakter pojemnościowy, co wytłumia ewentualne wszystkie częstotliwości harmoniczne w sygnałach. Zatem liczne zastosowania filtrów π1 to dopasowywanie do nadajników anten radiowych czy przetworników ultradźwiękowych.
+
+![obrazek](images/3.7.1.PNG)
+
+    Szeregowa struktura odsprzężeń lokalnych:
+![obrazek](images/3.7.2.PNG)
+
+    Równoległa struktura odsprzężeń lokalnych (w konfiguracji "w gwiazdę"):
+![obrazek](images/3.7.3.PNG)
+
+Zaletą połączenia szeregowego jest jego przejrzysta struktura i wiele stopni separujących pomiędzy odległymi układami. Prócz multiplikowania tłumienia zakłóceń zapobiega to także tendencjom do wzbudzania w torach wzmacniających sygnały. Wadą natomiast jest przepływ przez indukcyjności separujące stopnie sumy prądów stałych zasilających kolejne stopnie. SUma ta maleje po kolejnych stopniach, jednak może mieć znaczenie przy eleminacji możliwości nasycenia rdzeni - cewki mogą mieć należnie większe gabaryty niż przy zasilaniu pojedynczych stopni struktury.
+
+2. Rozprowadzanie mas, zerowanie, uziemianie
+W obowiązującej przed kilkudziesięciu laty technologii konstruowania sprzętu elektronicznego, przed rozpowszechnieniem technologii płytek drukowanych PCB, podstawą konstrukcji większości urządzeń było tzw. chassis czyli wytłoczka z grubej, sztywnej blachy do której były mocowane podstawki lamp, wsporniki z drobnymi elementami, ciężkie elementy w rodzaju transformatorów sieciowych, potencjometry, gniazdka, itp. Chassis było także, gdy zachodziła potrzeba, elementem ekranującym oraz przewodem masowym o zerowej oporności między nawet najbardziej odległymi punktami na swej powierzchni – w skrócie: masą urządzenia. Po połączeniu chassis np. z rurą instalacji hydraulicznej następowało uziemienie chassis zapewniające bezpieczne użytkowanie urządzenia i, np. podwyższające skuteczność obwodów antenowych radioodbiorników domowych, gdy sygnały z anteny bez przeszkód mogły spływać do ziemi.
+Obecnie rolę chassis pełnią metalowe obudowy urządzeń, przy czym ich prostym zadaniem jest zapewnienie bezpieczeństwa użytkownika przez efektywne, niskoomowe połączenie z uziemieniem (masą ochronną) – kołkiem lub zaciskiem uziemiającym zasilającej instalacji elektrycznej lub np. z tzw. masą okrętową („uwodnieniem”) na jednostkach pływających. Troska o bezpieczeństwo użytkowników coraz liczniejszych urządzeń domowych i przemysłowych zasilanych z sieci energetycznej objawiła się w ostatnim okresie wymogiem rozdzielenia przy instalowaniu przewodów tzw. „zera międzyfazowego” i uziemiających (w slangu: instalacje „trzydrutowe” w odróżnieniu od dawniejszych, „dwudrutowych”: „faza” + „zero” razem z uziemieniem) oraz tworzenia „ gwiaździstych” struktur połączeń z centralnym punktem uziemiania.
+Funkcje obudów w zakresie ekranowania i jako przewodu masowego dla całego urządzenia obecnie skomplikowały się wobec coraz większej komplikacji struktur urządzeń a przede wszystkim ewentualnego zmieszania małosygnałowych technologii analogowych i cyfrowych. Stąd stosuje się na ogół rozdzielenie tzw. masy urządzeniowej na masy analogową i cyfrową, lokalnie rozdzielane galwanicznie a łączone tylko w jednym, centralnym punkcie, jak na rysunku:
+
+![obrazek](images/3.7.4.PNG)
+
+Łączenie takie zapobiega przede wszystkim powstawaniu bardzo szkodliwych pod względem absorpcji zakłóceń tzw. pętli masowych. Powstanie takiej pętli wraz z przykrymi konsekwencjami pokazano na rysunku
+
+![obrazek](images/3.7.5.PNG)
+
+DO DOKOŃCZENIA
+
 ## 8. Automatyczne regulacje w układach z otoczenia komputerów wbudowanych - rodzaje, cele stosowania, sposoby realizacji.
 ## 9. Funkcje elementów systemu operacyjnego Linux dla systemu wbudowanego: toolchain, bootloader, jądro, system plików.
 1. Toolchain - zestaw narzędzi do kompilacji kodu źródłowego do plików wykonywalnych na platofrmie docelowej:
